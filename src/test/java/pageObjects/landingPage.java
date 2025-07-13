@@ -28,7 +28,7 @@ public class landingPage extends basePage{
 		WebElement Login = driver.findElement(login);
 		Login.click();
 	}
-	
+
 	
 
 }
