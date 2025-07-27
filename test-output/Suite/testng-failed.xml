@@ -8,13 +8,13 @@
   <test thread-count="5" name="Test(failed)">
     <parameter name="browser" value="chrome"/>
     <classes>
-      <class name="testCases.searchAndAddtoWishlistaProduct">
+      <class name="testCases.addToWishlist">
         <methods>
-          <include name="searchandaddtowishlist"/>
           <include name="setUp"/>
+          <include name="AddtoWishList"/>
           <include name="TearDown"/>
         </methods>
-      </class> <!-- testCases.searchAndAddtoWishlistaProduct -->
+      </class> <!-- testCases.addToWishlist -->
     </classes>
   </test> <!-- Test(failed) -->
 </suite> <!-- Failed suite [Suite] -->
