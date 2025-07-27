@@ -10,15 +10,18 @@ public class searchAndAddtoWishlistaProduct extends baseClass{
 	myAccountPage map;
 	productListingPage plp;
 	@Test
-	public void searchandaddtowishlist() {
+	public void searchandaddtowishlist() throws InterruptedException {
 		map = new myAccountPage(driver);
-		map.SearchForProduct();
+		String productToSearch = "Samsung Galaxy Tab 10.1";
+		map.SearchForProduct(productToSearch);
 		map.clickOnProduct();
 		
 		plp = new productListingPage(driver);
 		plp.verifyText();
-		plp.GetPrize();
+		plp.getPrize();
 		plp.clickWishlistAndVerifyAlert();
+		plp.clickonwishlist2();
+		
 	}
 
 }

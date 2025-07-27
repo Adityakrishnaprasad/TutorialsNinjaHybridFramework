@@ -15,18 +15,18 @@ public class landingPage extends basePage{
 	By login=By.xpath("//a[normalize-space()='Login']");
 	
 	public void clickOnUserdd() {
-		WebElement udd = driver.findElement(userdd);
-		udd.click();
+		WebElement userDD = driver.findElement(userdd);
+		userDD.click();
 	}
 	
 	public void clickOnuserReg() {
-		WebElement Reg = driver.findElement(reg);
-		Reg.click();
+		WebElement regLink=driver.findElement(reg);
+		regLink.click();
 	}
 	
 	public void clickOnLogin() {
-		WebElement Login = driver.findElement(login);
-		Login.click();
+		WebElement loginBtn = driver.findElement(login);
+		loginBtn.click();
 	}
 
 	

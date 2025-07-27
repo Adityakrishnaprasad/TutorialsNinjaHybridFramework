@@ -1,0 +1,9 @@
+# Created at 2025-07-18T22:37:04.868
+Corrupted channel by directly writing to native stream in forked JVM 1. Stream 'Generating report to temp directory...'.
+
+# Created at 2025-07-18T22:37:04.870
+Corrupted channel by directly writing to native stream in forked JVM 1. Stream 'Report successfully generated to C:\Users\adity\AppData\Local\Temp\15986808413045829184\allure-report'.
+
+# Created at 2025-07-18T22:37:05.439
+Corrupted channel by directly writing to native stream in forked JVM 1. Stream 'Starting web server...'.
+

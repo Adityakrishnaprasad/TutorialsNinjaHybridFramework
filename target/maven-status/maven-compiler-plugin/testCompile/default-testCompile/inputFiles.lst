@@ -4,7 +4,9 @@ C:\Users\adity\TutorialsNinjaHybridFramework\src\test\java\pageObjects\loginPage
 C:\Users\adity\TutorialsNinjaHybridFramework\src\test\java\pageObjects\myAccountPage.java
 C:\Users\adity\TutorialsNinjaHybridFramework\src\test\java\pageObjects\productListingPage.java
 C:\Users\adity\TutorialsNinjaHybridFramework\src\test\java\pageObjects\registerPage.java
+C:\Users\adity\TutorialsNinjaHybridFramework\src\test\java\pageObjects\wishListPage.java
 C:\Users\adity\TutorialsNinjaHybridFramework\src\test\java\testBase\baseClass.java
+C:\Users\adity\TutorialsNinjaHybridFramework\src\test\java\testCases\addToWishlist.java
 C:\Users\adity\TutorialsNinjaHybridFramework\src\test\java\testCases\loginTest.java
 C:\Users\adity\TutorialsNinjaHybridFramework\src\test\java\testCases\logOutTest.java
 C:\Users\adity\TutorialsNinjaHybridFramework\src\test\java\testCases\registerAnAccount.java
