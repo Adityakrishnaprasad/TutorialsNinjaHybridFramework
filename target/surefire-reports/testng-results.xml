@@ -2,18 +2,18 @@
 <testng-results ignored="0" total="3" passed="3" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2025-07-27T15:12:20 IST" name="Suite" finished-at="2025-07-27T15:12:35 IST" duration-ms="14372">
+  <suite started-at="2025-07-29T07:47:26 IST" name="Suite" finished-at="2025-07-29T07:47:36 IST" duration-ms="9895">
     <groups>
     </groups>
-    <test started-at="2025-07-27T15:12:20 IST" name="Test" finished-at="2025-07-27T15:12:35 IST" duration-ms="14372">
+    <test started-at="2025-07-29T07:47:26 IST" name="Test" finished-at="2025-07-29T07:47:36 IST" duration-ms="9895">
       <class name="testCases.searchAndAddtoWishlistaProduct">
-        <test-method signature="searchandaddtowishlist()[pri:0, instance:testCases.searchAndAddtoWishlistaProduct@536f2a7e]" started-at="2025-07-27T15:12:28 IST" name="searchandaddtowishlist" finished-at="2025-07-27T15:12:33 IST" duration-ms="5059" status="PASS">
+        <test-method signature="searchandaddtowishlist()[pri:0, instance:testCases.searchAndAddtoWishlistaProduct@536f2a7e]" started-at="2025-07-29T07:47:30 IST" name="searchandaddtowishlist" finished-at="2025-07-29T07:47:34 IST" duration-ms="4097" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- searchandaddtowishlist -->
       </class> <!-- testCases.searchAndAddtoWishlistaProduct -->
       <class name="testCases.loginTest">
-        <test-method is-config="true" signature="setUp(java.lang.String)[pri:0, instance:testCases.loginTest@52f27fbd]" started-at="2025-07-27T15:12:20 IST" name="setUp" finished-at="2025-07-27T15:12:25 IST" duration-ms="5133" status="PASS">
+        <test-method is-config="true" signature="setUp(java.lang.String)[pri:0, instance:testCases.loginTest@52f27fbd]" started-at="2025-07-29T07:47:26 IST" name="setUp" finished-at="2025-07-29T07:47:28 IST" duration-ms="2630" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -24,17 +24,17 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method signature="loginTest()[pri:0, instance:testCases.loginTest@52f27fbd]" started-at="2025-07-27T15:12:25 IST" name="loginTest" finished-at="2025-07-27T15:12:28 IST" duration-ms="2329" status="PASS">
+        <test-method signature="loginTest()[pri:0, instance:testCases.loginTest@52f27fbd]" started-at="2025-07-29T07:47:28 IST" name="loginTest" finished-at="2025-07-29T07:47:30 IST" duration-ms="1719" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- loginTest -->
-        <test-method is-config="true" signature="TearDown()[pri:0, instance:testCases.loginTest@52f27fbd]" started-at="2025-07-27T15:12:34 IST" name="TearDown" finished-at="2025-07-27T15:12:35 IST" duration-ms="487" status="PASS">
+        <test-method is-config="true" signature="TearDown()[pri:0, instance:testCases.loginTest@52f27fbd]" started-at="2025-07-29T07:47:35 IST" name="TearDown" finished-at="2025-07-29T07:47:36 IST" duration-ms="279" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- TearDown -->
       </class> <!-- testCases.loginTest -->
       <class name="testCases.addToWishlist">
-        <test-method signature="AddtoWishList()[pri:0, instance:testCases.addToWishlist@72bc6553]" started-at="2025-07-27T15:12:33 IST" name="AddtoWishList" finished-at="2025-07-27T15:12:34 IST" duration-ms="1097" status="PASS">
+        <test-method signature="AddtoWishList()[pri:0, instance:testCases.addToWishlist@72bc6553]" started-at="2025-07-29T07:47:34 IST" name="AddtoWishList" finished-at="2025-07-29T07:47:35 IST" duration-ms="1001" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- AddtoWishList -->
