@@ -5,6 +5,7 @@ import java.time.Duration;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
@@ -29,7 +30,9 @@ public class baseClass {
 				driver = new FirefoxDriver();
 				break;
 			case "edge":
-				driver = new EdgeDriver();
+				System.setProperty("webdriver.edge.driver", "D:\\edgedriver_win64\\msedgedriver.exe");
+				EdgeOptions edgeOptions = new EdgeOptions();
+				driver = new EdgeDriver(edgeOptions);
 				break;
 			default:
 				throw new IllegalArgumentException("Browser not supported: " + browser);
