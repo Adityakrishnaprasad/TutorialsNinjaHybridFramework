@@ -6,15 +6,8 @@
     <listener class-name="io.qameta.allure.testng.AllureTestNg"/>
   </listeners>
   <test thread-count="5" name="Test(failed)" verbose="0">
-    <parameter name="browser" value="chrome"/>
+    <parameter name="browser" value="firefox"/>
     <classes>
-      <class name="testCases.addToWishlist">
-        <methods>
-          <include name="setUp"/>
-          <include name="AddtoWishList"/>
-          <include name="TearDown"/>
-        </methods>
-      </class> <!-- testCases.addToWishlist -->
       <class name="testCases.searchAndAddtoWishlistaProduct">
         <methods>
           <include name="searchandaddtowishlist"/>
@@ -22,20 +15,13 @@
           <include name="TearDown"/>
         </methods>
       </class> <!-- testCases.searchAndAddtoWishlistaProduct -->
-      <class name="testCases.loginTest">
-        <methods>
-          <include name="loginTest"/>
-          <include name="setUp"/>
-          <include name="TearDown"/>
-        </methods>
-      </class> <!-- testCases.loginTest -->
-      <class name="testCases.logOutTest">
+      <class name="testCases.addToWishlist">
         <methods>
           <include name="setUp"/>
-          <include name="logOutTest"/>
+          <include name="AddtoWishList"/>
           <include name="TearDown"/>
         </methods>
-      </class> <!-- testCases.logOutTest -->
+      </class> <!-- testCases.addToWishlist -->
     </classes>
   </test> <!-- Test(failed) -->
 </suite> <!-- Failed suite [Suite] -->
