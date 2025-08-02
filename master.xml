@@ -6,13 +6,14 @@
 <listener class-name="io.qameta.allure.testng.AllureTestNg"/>
 </listeners>
   <test thread-count="5" name="Test">
-  <parameter name="browser" value="edge" />
+  <parameter name="browser" value="chrome" />
     <classes>
       <class name="testCases.registerAnAccount"/>
       <class name="testCases.logOutTest"/>
       <class name="testCases.loginTest"/>
       <class name="testCases.searchAndAddtoWishlistaProduct"/>
      <class name="testCases.addToWishlist"/>
+    
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->
