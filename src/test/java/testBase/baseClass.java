@@ -7,9 +7,12 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
+
+import utilities.configurationReader;
 
 public class baseClass {
 
@@ -38,31 +41,40 @@ public class baseClass {
                 break;
 
             case "firefox":
-                driver = new FirefoxDriver(); // Add headless support if needed
-                break;
+            	 FirefoxOptions firefoxOptions = new FirefoxOptions();
+                 if (isJenkins) {
+                     firefoxOptions.addArguments("--headless");
+                     firefoxOptions.addArguments("--disable-gpu");
+                     firefoxOptions.addArguments("--window-size=1920,1080");
+                 }
+                 driver = new FirefoxDriver(firefoxOptions);
+                 break;
 
             case "edge":
-                System.setProperty("webdriver.edge.driver", "D:\\edgedriver_win64\\msedgedriver.exe");
-                EdgeOptions edgeOptions = new EdgeOptions();
-                edgeOptions.addArguments("--headless=new");
-                edgeOptions.addArguments("--disable-gpu");
-                edgeOptions.addArguments("--window-size=1920,1080");
-                edgeOptions.addArguments("--no-sandbox");
-                edgeOptions.addArguments("--disable-dev-shm-usage");
-                driver = new EdgeDriver(edgeOptions);
-                break;
-
+            	 System.setProperty("webdriver.edge.driver", "D:\\edgedriver_win64\\msedgedriver.exe");
+                 EdgeOptions edgeOptions = new EdgeOptions();
+                 if (isJenkins) {
+                     edgeOptions.addArguments("--headless=new");
+                     edgeOptions.addArguments("--disable-gpu");
+                     edgeOptions.addArguments("--window-size=1920,1080");
+                     edgeOptions.addArguments("--no-sandbox");
+                     edgeOptions.addArguments("--disable-dev-shm-usage");
+                 }
+                 driver = new EdgeDriver(edgeOptions);
+                 break;
 
             default:
                 throw new IllegalArgumentException("Browser not supported: " + browser);
+                
         }
 
         driver.manage().window().maximize();
-        driver.get("https://tutorialsninja.com/demo/");
+        driver.get(configurationReader.get("baseURL"));
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
     }
 
-    @AfterTest
+    @AfterTest(alwaysRun = true)
     public void TearDown() {
         driver.quit();
     }

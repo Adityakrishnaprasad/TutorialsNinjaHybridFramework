@@ -38,8 +38,7 @@ public class productListingPage extends basePage {
 	}
 	
 	public void clickonwishlist2() throws InterruptedException {
-		Thread.sleep(2000);
-		wishlist2.click();
+		ww.until(ExpectedConditions.elementToBeClickable(wishlist2)).click();
 	}
 	
 	

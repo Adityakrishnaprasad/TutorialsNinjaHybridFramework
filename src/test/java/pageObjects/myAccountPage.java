@@ -5,6 +5,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class myAccountPage extends basePage{
 
@@ -38,7 +39,13 @@ public class myAccountPage extends basePage{
 	}
 	
 	public void clickOnProduct() {
-	    ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'}); arguments[0].click();", prod);
+	    try {
+	        ww.until(ExpectedConditions.elementToBeClickable(prod)).click();
+	    } catch (Exception e) {
+	        ((JavascriptExecutor) driver).executeScript(
+	            "arguments[0].scrollIntoView({block: 'center'}); arguments[0].click();", prod
+	        );
+	    }
 	}
 	
 	public String getNameOfProduct() {
