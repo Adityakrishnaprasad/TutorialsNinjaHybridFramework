@@ -44,14 +44,14 @@ public class baseClass {
             case "edge":
                 System.setProperty("webdriver.edge.driver", "D:\\edgedriver_win64\\msedgedriver.exe");
                 EdgeOptions edgeOptions = new EdgeOptions();
-                if (isJenkins) {
-                    edgeOptions.addArguments("--headless=new");
-                    edgeOptions.addArguments("--no-sandbox");
-                    edgeOptions.addArguments("--disable-dev-shm-usage");
-                    edgeOptions.addArguments("--remote-allow-origins=*");
-                }
+                edgeOptions.addArguments("--headless=new");
+                edgeOptions.addArguments("--disable-gpu");
+                edgeOptions.addArguments("--window-size=1920,1080");
+                edgeOptions.addArguments("--no-sandbox");
+                edgeOptions.addArguments("--disable-dev-shm-usage");
                 driver = new EdgeDriver(edgeOptions);
                 break;
+
 
             default:
                 throw new IllegalArgumentException("Browser not supported: " + browser);
