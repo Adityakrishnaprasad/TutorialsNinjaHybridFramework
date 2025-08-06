@@ -7,7 +7,7 @@
     </listeners>
 
     <!-- Chrome Tests -->
-   <!-- <test name="ChromeTest">
+    <test name="ChromeTest">
         <parameter name="browser" value="chrome"/>
         <classes>
             <class name="testCases.registerAnAccount"/>
@@ -16,10 +16,10 @@
             <class name="testCases.searchAndAddtoWishlistaProduct"/>
             <class name="testCases.addToWishlist"/>
         </classes>
-    </test>-->
+    </test>
 
     <!-- Firefox Tests -->
-    <test name="FirefoxTest">
+    <!--  <test name="FirefoxTest">
         <parameter name="browser" value="firefox"/>
         <classes>
             <class name="testCases.registerAnAccount"/>
@@ -28,7 +28,7 @@
             <class name="testCases.searchAndAddtoWishlistaProduct"/>
             <class name="testCases.addToWishlist"/>
         </classes>
-    </test>
+    </test>-->
 
     <!-- Edge Tests -->
   <!--  <test name="EdgeTest">
