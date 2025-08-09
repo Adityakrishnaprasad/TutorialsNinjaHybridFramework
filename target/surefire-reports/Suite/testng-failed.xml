@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [Suite]" guice-stage="DEVELOPMENT" verbose="0">
+  <listeners>
+    <listener class-name="utilities.Listeners"/>
+    <listener class-name="io.qameta.allure.testng.AllureTestNg"/>
+  </listeners>
+  <test thread-count="5" name="Test(failed)" verbose="0">
+    <parameter name="browser" value="firefox"/>
+    <classes>
+      <class name="testCases.searchAndAddtoWishlistaProduct">
+        <methods>
+          <include name="searchandaddtowishlist"/>
+          <include name="setUp"/>
+          <include name="TearDown"/>
+        </methods>
+      </class> <!-- testCases.searchAndAddtoWishlistaProduct -->
+      <class name="testCases.addToWishlist">
+        <methods>
+          <include name="setUp"/>
+          <include name="AddtoWishList"/>
+          <include name="TearDown"/>
+        </methods>
+      </class> <!-- testCases.addToWishlist -->
+    </classes>
+  </test> <!-- Test(failed) -->
+</suite> <!-- Failed suite [Suite] -->
