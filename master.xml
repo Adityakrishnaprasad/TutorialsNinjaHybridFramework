@@ -16,10 +16,10 @@
             <class name="testCases.searchAndAddtoWishlistaProduct"/>
             <class name="testCases.addToWishlist"/>
         </classes>
-    </test>
+    </test> 
 
     <!-- Firefox Tests -->
-    <!--  <test name="FirefoxTest">
+
         <parameter name="browser" value="firefox"/>
         <classes>
             <class name="testCases.registerAnAccount"/>
@@ -28,9 +28,7 @@
             <class name="testCases.searchAndAddtoWishlistaProduct"/>
             <class name="testCases.addToWishlist"/>
         </classes>
-    </test>-->
 
-    <!-- Edge Tests -->
   <!--  <test name="EdgeTest">
         <parameter name="browser" value="edge"/>
         <classes>

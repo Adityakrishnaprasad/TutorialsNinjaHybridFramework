@@ -26,7 +26,7 @@ public class wishListPage extends basePage{
 	}
 	
     public void VerifyPopUp() {
-    	//System.out.println(confirmationPopup.isDisplayed());
+    	
     	Assert.assertTrue(confirmationPopup.isDisplayed(), null);
     }
     
