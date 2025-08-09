@@ -24,13 +24,12 @@ public class wishListPage extends basePage{
         ww.until(ExpectedConditions.elementToBeClickable(addtoCartBtn)).click();
     }
 
-    public void VerifyPopUp() {
-        // Highlight: Wait for popup visibility before assertion
-        ww.until(ExpectedConditions.visibilityOf(confirmationPopup));
-        Assert.assertTrue(confirmationPopup.isDisplayed(), "Confirmation popup is not displayed");
-    }
+   public void VerifyPopUp() {
+    ww.until(ExpectedConditions.visibilityOf(confirmationPopup));
+    Assert.assertTrue(confirmationPopup.isDisplayed(), "Confirmation popup is not displayed");
+   }
 
-    // Highlight: Rename clickoncart2 to clickOnCart2 for naming consistency
+   
     public void clickOnCart2() {
         ww.until(ExpectedConditions.elementToBeClickable(cart2)).click();
     }
@@ -39,7 +38,7 @@ public class wishListPage extends basePage{
         ww.until(ExpectedConditions.elementToBeClickable(closeicon)).click();
     }
 
-    // Highlight: Add getter methods for product name and price
+   
     public String getProductName() {
         return productName.getText();
     }
