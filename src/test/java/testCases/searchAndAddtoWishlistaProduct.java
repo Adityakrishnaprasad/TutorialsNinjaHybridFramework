@@ -18,9 +18,9 @@ public class searchAndAddtoWishlistaProduct extends baseClass{
 		
 		plp = new productListingPage(driver);
 		plp.verifyText();
-		plp.getPrize();
+		plp.getPrice();
 		plp.clickWishlistAndVerifyAlert();
-		plp.clickonwishlist2();
+		plp.clickOnWishlist2();
 		
 	}
 

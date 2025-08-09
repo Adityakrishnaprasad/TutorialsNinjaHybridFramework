@@ -1,0 +1,6 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","3922","CreateUser","CrossBrowserSuite","Sun Aug 10 00:13:51 IST 2025","passed","Sun Aug 10 00:13:55 IST 2025","testCases.registerAnAccount","ChromeTest","testCases.registerAnAccount","CreateUser"
+"","2355","searchandaddtowishlist","CrossBrowserSuite","Sun Aug 10 00:13:59 IST 2025","passed","Sun Aug 10 00:14:02 IST 2025","testCases.searchAndAddtoWishlistaProduct","ChromeTest","testCases.searchAndAddtoWishlistaProduct","searchandaddtowishlist"
+"","2556","loginTest","CrossBrowserSuite","Sun Aug 10 00:13:57 IST 2025","passed","Sun Aug 10 00:13:59 IST 2025","testCases.loginTest","ChromeTest","testCases.loginTest","loginTest"
+"","1201","AddtoWishList","CrossBrowserSuite","Sun Aug 10 00:14:02 IST 2025","passed","Sun Aug 10 00:14:03 IST 2025","testCases.addToWishlist","ChromeTest","testCases.addToWishlist","AddtoWishList"
+"","1407","logOutTest","CrossBrowserSuite","Sun Aug 10 00:13:55 IST 2025","passed","Sun Aug 10 00:13:57 IST 2025","testCases.logOutTest","ChromeTest","testCases.logOutTest","logOutTest"
