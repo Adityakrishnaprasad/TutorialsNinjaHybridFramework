@@ -1,0 +1,10 @@
+testCases\loginTest.class
+utilities\DataGenerator.class
+pageObjects\loginPage.class
+pageObjects\basePage.class
+pageObjects\myAccountPage.class
+testBase\baseClass.class
+testCases\registerAnAccount.class
+testCases\logOutTest.class
+pageObjects\landingPage.class
+pageObjects\registerPage.class
