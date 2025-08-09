@@ -4,6 +4,7 @@ package pageObjects;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 
 
@@ -17,18 +18,16 @@ public class registerPage  extends basePage{
 	
 	//locators
 	
-	@FindBy(css="#input-firstname") WebElement firstnameField;
-	@FindBy(css="#input-lastname") WebElement lastnameField;
-	@FindBy(css="#input-email") WebElement emailField;
-	@FindBy(css="#input-telephone") WebElement telephoneField;
-	@FindBy(css="#input-password") WebElement passwordField;
-	@FindBy(css="#input-confirm") WebElement cnfpasswordField;
-	@FindBy(xpath="//input[@name='agree']") WebElement checkboxField;
-    @FindBy(xpath="//input[@value='Continue']") WebElement continueButton;
-    @FindBy(xpath="//h1[text()='Your Account Has Been Created!']") WebElement confirmTxt;
-    
-    //methods 
-    
+	@FindBy(css="#input-firstname") private WebElement firstnameField;
+    @FindBy(css="#input-lastname") private WebElement lastnameField;
+    @FindBy(css="#input-email") private WebElement emailField;
+    @FindBy(css="#input-telephone") private WebElement telephoneField;
+    @FindBy(css="#input-password") private WebElement passwordField;
+    @FindBy(css="#input-confirm") private WebElement cnfpasswordField;
+    @FindBy(xpath="//input[@name='agree']") private WebElement checkboxField;
+    @FindBy(xpath="//input[@value='Continue']") private WebElement continueButton;
+    @FindBy(xpath="//h1[text()='Your Account Has Been Created!']") private WebElement confirmTxt;
+
     public void enterFirstName(String firstName) {
         firstnameField.clear();
         firstnameField.sendKeys(firstName);
@@ -60,18 +59,22 @@ public class registerPage  extends basePage{
     }
 
     public void clickCheckbox() {
-        checkboxField.click();
+    	ww.until(ExpectedConditions.elementToBeClickable(checkboxField)).click();
     }
 
     public void clickContinueButton() {
+        
+        ww.until(ExpectedConditions.elementToBeClickable(continueButton));
         continueButton.click();
     }
 
     public void verifyText() {
-    	System.out.println(confirmTxt.isDisplayed());
-    	String Act_txt=confirmTxt.getText();
-    	Assert.assertEquals(Act_txt, "Your Account Has Been Created!");
+        ww.until(ExpectedConditions.visibilityOf(confirmTxt));
+        String actTxt=confirmTxt.getText();
+        Assert.assertEquals(actTxt, "Your Account Has Been Created!");
     }
+
+   
     
    
     

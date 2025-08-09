@@ -13,43 +13,46 @@ public class myAccountPage extends basePage{
 		super(driver);
 	}
 	
-	@FindBy(xpath="//span[text()='My Account']") WebElement myAccountDropdown;
-	@FindBy(xpath="//a[text()='Logout']") WebElement logoutLink;
-	@FindBy(xpath="//a[text()='Continue']") WebElement continueButton;
-	@FindBy(name="search") WebElement searchField;
-	@FindBy(xpath="//a[text()='Samsung Galaxy Tab 10.1']") WebElement prod;
-	@FindBy(xpath="//i[@class='fa fa-search']") WebElement searchBtn;
-	
-	public void clickOnMyAccountDropdown() {
-		myAccountDropdown.click();
-		
-	}
-	
-	public void clickOnLogout() {
-		logoutLink.click();
-	}
-	
-	public void clickOnContinue() {
-		continueButton.click();
-	}
-	
-	public void SearchForProduct(String pName) {
-		searchField.sendKeys(pName);
-		searchBtn.click();
-	}
-	
-	public void clickOnProduct() {
-	    try {
-	        ww.until(ExpectedConditions.elementToBeClickable(prod)).click();
-	    } catch (Exception e) {
-	        ((JavascriptExecutor) driver).executeScript(
-	            "arguments[0].scrollIntoView({block: 'center'}); arguments[0].click();", prod
-	        );
-	    }
-	}
-	
-	public String getNameOfProduct() {
-		return prod.getText();
-	}
+	@FindBy(xpath="//span[text()='My Account']") private WebElement myAccountDropdown;
+    @FindBy(xpath="//a[text()='Logout']") private WebElement logoutLink;
+    @FindBy(xpath="//a[text()='Continue']") private WebElement continueButton;
+    @FindBy(name="search") private WebElement searchField;
+    @FindBy(xpath="//a[text()='Samsung Galaxy Tab 10.1']") private WebElement prod;
+    @FindBy(xpath="//i[@class='fa fa-search']") private WebElement searchBtn;
 
+    public void clickOnMyAccountDropdown() {
+        ww.until(ExpectedConditions.elementToBeClickable(myAccountDropdown));
+        myAccountDropdown.click();
+    }
+
+    public void clickOnLogout() {
+        ww.until(ExpectedConditions.elementToBeClickable(logoutLink));
+        logoutLink.click();
+    }
+
+    public void clickOnContinue() {
+        ww.until(ExpectedConditions.elementToBeClickable(continueButton));
+        continueButton.click();
+    }
+
+    public void SearchForProduct(String pName) {
+        // Highlight: Wait for search field visibility
+        ww.until(ExpectedConditions.visibilityOf(searchField));
+        searchField.sendKeys(pName);
+        searchBtn.click();
+    }
+
+    public void clickOnProduct() {
+        try {
+            ww.until(ExpectedConditions.elementToBeClickable(prod)).click();
+        } catch (Exception e) {
+            ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].scrollIntoView({block: 'center'}); arguments[0].click();", prod
+            );
+        }
+    }
+	
+    public String getNameOfProduct() {
+        return prod.getText();
+    }
 }

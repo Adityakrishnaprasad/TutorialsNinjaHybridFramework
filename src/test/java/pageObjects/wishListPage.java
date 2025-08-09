@@ -13,30 +13,38 @@ public class wishListPage extends basePage{
 	}
 	
 	
-	@FindBy(xpath="(//tbody/tr/td[2]/a") WebElement ProductName;
-	@FindBy(xpath="//tbody/tr/td[5]/div") WebElement ProductPrice;
-	@FindBy(xpath="//button[@data-original-title='Add to Cart']/i") WebElement AddtoCartBtn;
-	@FindBy(css="div[class='alert alert-success alert-dismissible']") WebElement confirmationPopup;
-	@FindBy(xpath="//button[@class='btn btn-inverse btn-block btn-lg dropdown-toggle']") WebElement cart2;
-	@FindBy(xpath="//button/i[@class='fa fa-times']") WebElement closeicon;
-	
-	
-	public void clickOnAddtoCartBtn() {
-		AddtoCartBtn.click();
-	}
-	
-    public void VerifyPopUp() {
-    	//System.out.println(confirmationPopup.isDisplayed());
-    	Assert.assertTrue(confirmationPopup.isDisplayed(), null);
+	@FindBy(xpath="(//tbody/tr/td[2]/a)") private WebElement productName;
+    @FindBy(xpath="//tbody/tr/td[5]/div") private WebElement productPrice;
+    @FindBy(xpath="//button[@data-original-title='Add to Cart']/i") private WebElement addtoCartBtn;
+    @FindBy(css="div[class='alert alert-success alert-dismissible']") private WebElement confirmationPopup;
+    @FindBy(xpath="//button[@class='btn btn-inverse btn-block btn-lg dropdown-toggle']") private WebElement cart2;
+    @FindBy(xpath="//button/i[@class='fa fa-times']") private WebElement closeicon;
+
+    public void clickOnAddtoCartBtn() {
+        ww.until(ExpectedConditions.elementToBeClickable(addtoCartBtn)).click();
     }
-    
-    public void clickoncart2() {
-    	ww.until(ExpectedConditions.elementToBeClickable(cart2)).click();
+
+   public void VerifyPopUp() {
+    ww.until(ExpectedConditions.visibilityOf(confirmationPopup));
+    Assert.assertTrue(confirmationPopup.isDisplayed(), "Confirmation popup is not displayed");
+   }
+
+   
+    public void clickOnCart2() {
+        ww.until(ExpectedConditions.elementToBeClickable(cart2)).click();
     }
-    
+
     public void closeIcon() {
-    	ww.until(ExpectedConditions.elementToBeClickable(closeicon)).click();
-    	
+        ww.until(ExpectedConditions.elementToBeClickable(closeicon)).click();
+    }
+
+   
+    public String getProductName() {
+        return productName.getText();
+    }
+
+    public String getProductPrice() {
+        return productPrice.getText();
     }
     
     
