@@ -1,10 +1,16 @@
 testCases\loginTest.class
 utilities\DataGenerator.class
 pageObjects\loginPage.class
+utilities\Listeners.class
+pageObjects\wishListPage.class
 pageObjects\basePage.class
+utilities\configurationReader.class
 pageObjects\myAccountPage.class
+pageObjects\productListingPage.class
 testBase\baseClass.class
+testCases\addToWishlist.class
 testCases\registerAnAccount.class
 testCases\logOutTest.class
+testCases\searchAndAddtoWishlistaProduct.class
 pageObjects\landingPage.class
 pageObjects\registerPage.class
