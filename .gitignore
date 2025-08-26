@@ -1,1 +1,27 @@
+#  Environment files
 .env
+
+#  Build output
+/target/
+/test-output/
+/allure-results/
+/allure-report/
+
+#  IDE & project settings
+.classpath
+.project
+.settings/
+.idea/
+.vscode/
+*.iml
+
+#  Logs
+*.log
+/logs/
+
+#  System / Misc
+.DS_Store
+Thumbs.db
+
+#  Ignore accidental browser/HTML files
+master

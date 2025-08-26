@@ -20,6 +20,7 @@ public class productListingPage extends basePage {
     @FindBy(xpath="//div[@class='alert alert-success alert-dismissible']") private WebElement wishlistAlertMessage;
     @FindBy(xpath="//span[.='Wish List (1)']") private WebElement wishlist2;
 
+   
     public void verifyText() {
         Assert.assertEquals(prodName.getText(),"Samsung Galaxy Tab 10.1","else product is not matching");
     }
