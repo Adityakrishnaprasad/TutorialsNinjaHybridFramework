@@ -12,7 +12,7 @@ public class configurationReader {
         File envFile = new File(".env");
 
         if (envFile.exists()) {
-            dotenv = Dotenv.configure().filename(".env").load();
+            dotenv = Dotenv.configure().directory(System.getProperty("user.dir")).filename(".env").load();
             System.out.println(" Loaded environment variables from .env");
         } else {
             dotenv = Dotenv.configure().filename(".env.example").load();
