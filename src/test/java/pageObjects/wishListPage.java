@@ -19,6 +19,8 @@ public class wishListPage extends basePage{
     @FindBy(css="div[class='alert alert-success alert-dismissible']") private WebElement confirmationPopup;
     @FindBy(xpath="//button[@class='btn btn-inverse btn-block btn-lg dropdown-toggle']") private WebElement cart2;
     @FindBy(xpath="//button/i[@class='fa fa-times']") private WebElement closeicon;
+    @FindBy(xpath="//i[@class='fa fa-times']") private WebElement removeIcon;
+    @FindBy(xpath="//p[text()='Your wish list is empty.']") private WebElement emptyWishlistMessage;    
 
     public void clickOnAddtoCartBtn() {
         ww.until(ExpectedConditions.elementToBeClickable(addtoCartBtn)).click();
@@ -47,5 +49,13 @@ public class wishListPage extends basePage{
         return productPrice.getText();
     }
     
+    public void clickOnRemoveIcon() {
+        ww.until(ExpectedConditions.elementToBeClickable(removeIcon)).click();
+    }
+
+    public String getEmptyWishlistMessage() {
+        ww.until(ExpectedConditions.visibilityOf(emptyWishlistMessage));
+        return emptyWishlistMessage.getText();
+    }   
     
 }
