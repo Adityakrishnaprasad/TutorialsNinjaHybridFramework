@@ -14,7 +14,7 @@ public class loginTest extends baseClass{
 	String pass = configurationReader.get("app_password");
 
 	@Test
-	public void loginTest() {
+	public void loginTestApp() {
 		lp = new landingPage(driver);
 		lp.clickOnUserdd();
 		lp.clickOnLogin();

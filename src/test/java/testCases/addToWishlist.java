@@ -2,8 +2,6 @@ package testCases;
 
 import org.testng.annotations.Test;
 
-import pageObjects.myAccountPage;
-import pageObjects.productListingPage;
 import pageObjects.wishListPage;
 import testBase.baseClass;
 
