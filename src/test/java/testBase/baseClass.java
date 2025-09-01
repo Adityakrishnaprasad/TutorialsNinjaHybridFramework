@@ -26,56 +26,40 @@ public class baseClass {
     @BeforeTest(alwaysRun = true)
     public void setUp(String browser) {
 
-        boolean isJenkins = System.getenv("JENKINS_HOME") != null;
-
         switch (browser.toLowerCase()) {
             case "chrome":
                 ChromeOptions chromeOptions = new ChromeOptions();
-                if (isJenkins) {
-                    chromeOptions.addArguments("--headless=new");
-                    chromeOptions.addArguments("--no-sandbox");
-                    chromeOptions.addArguments("--disable-dev-shm-usage");
-                    chromeOptions.addArguments("--remote-allow-origins=*");
-                }
+                chromeOptions.addArguments("--start-maximized");
+                chromeOptions.addArguments("--remote-allow-origins=*");
                 driver = new ChromeDriver(chromeOptions);
                 break;
 
             case "firefox":
-            	 FirefoxOptions firefoxOptions = new FirefoxOptions();
-                 if (isJenkins) {
-                     firefoxOptions.addArguments("--headless");
-                     firefoxOptions.addArguments("--disable-gpu");
-                     firefoxOptions.addArguments("--window-size=1920,1080");
-                 }
-                 driver = new FirefoxDriver(firefoxOptions);
-                 break;
+                FirefoxOptions firefoxOptions = new FirefoxOptions();
+                driver = new FirefoxDriver(firefoxOptions);
+                driver.manage().window().maximize();
+                break;
 
             case "edge":
-            	 System.setProperty("webdriver.edge.driver", "D:\\edgedriver_win64\\msedgedriver.exe");
-                 EdgeOptions edgeOptions = new EdgeOptions();
-                 if (isJenkins) {
-                     edgeOptions.addArguments("--headless=new");
-                     edgeOptions.addArguments("--disable-gpu");
-                     edgeOptions.addArguments("--window-size=1920,1080");
-                     edgeOptions.addArguments("--no-sandbox");
-                     edgeOptions.addArguments("--disable-dev-shm-usage");
-                 }
-                 driver = new EdgeDriver(edgeOptions);
-                 break;
+                System.setProperty("webdriver.edge.driver", "D:\\edgedriver_win64\\msedgedriver.exe");
+                EdgeOptions edgeOptions = new EdgeOptions();
+                driver = new EdgeDriver(edgeOptions);
+                driver.manage().window().maximize();
+                break;
 
             default:
                 throw new IllegalArgumentException("Browser not supported: " + browser);
-                
         }
 
-        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(40));
         driver.get(configurationReader.get("baseURL"));
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
     }
 
     @AfterTest(alwaysRun = true)
     public void TearDown() {
-        driver.quit();
+        if (driver != null) {
+            driver.quit();
+        }
     }
 }
