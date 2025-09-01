@@ -15,13 +15,11 @@ registerPage rp;
 	@Test
 	public void CreateUser() {
 		lp = new landingPage(driver);
-		lp.clickOnUserdd();
 		lp.clickOnuserReg();
 		
 		String pwd = DataGenerator.getPassword();
 		
 		
-	
 		rp = new registerPage(driver);
 		rp.enterFirstName(DataGenerator.getFirstName());
 		rp.enterLastName(DataGenerator.getLastName());

@@ -17,20 +17,17 @@ public class landingPage extends basePage{
     @FindBy(xpath="//a[normalize-space()='Login']") private WebElement login;
     
 
-    
-    public void clickOnUserdd() {
-        ww.until(ExpectedConditions.elementToBeClickable(userdd));
-        userdd.click();
-    }
-
+    //clicks on user dropdown and clicks on register user link
     public void clickOnuserReg() {
-        ww.until(ExpectedConditions.elementToBeClickable(regLink));
-        regLink.click();
+    	ww.until(ExpectedConditions.elementToBeClickable(userdd)).click();
+        ww.until(ExpectedConditions.elementToBeClickable(regLink)).click();
     }
-
+    
+    
+    //clicks on user dropdown and clicks on login link
     public void clickOnLogin() {
-        ww.until(ExpectedConditions.elementToBeClickable(login));
-        login.click();
+    	ww.until(ExpectedConditions.elementToBeClickable(userdd)).click();
+        ww.until(ExpectedConditions.elementToBeClickable(login)).click();
     }
 }
 

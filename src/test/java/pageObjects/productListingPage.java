@@ -18,7 +18,7 @@ public class productListingPage extends basePage {
     @FindBy(xpath="//h1[normalize-space()='Samsung Galaxy Tab 10.1']/following::h2[1]")  private WebElement priceField;
     @FindBy(xpath="//button[@type='button']//i[@class='fa fa-heart']") private WebElement wishlist;
     @FindBy(xpath="//div[@class='alert alert-success alert-dismissible']") private WebElement wishlistAlertMessage;
-    @FindBy(xpath="//span[.='Wish List (1)']") private WebElement wishlist2;
+    @FindBy(xpath="//a[contains(@title,'Wish List')] /child::span") private WebElement wishlist2;
 
    
     public void verifyText() {
