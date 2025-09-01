@@ -1,5 +1,7 @@
 package pageObjects;
 
+import java.util.List;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -15,15 +17,15 @@ public class wishListPage extends basePage{
 	
 	@FindBy(xpath="(//tbody/tr/td[2]/a)") private WebElement productName;
     @FindBy(xpath="//tbody/tr/td[5]/div") private WebElement productPrice;
-    @FindBy(xpath="//button[@data-original-title='Add to Cart']/i") private WebElement addtoCartBtn;
+    @FindBy(xpath="//button[@data-original-title='Add to Cart']/i") private List<WebElement> addtoCartBtns;
     @FindBy(css="div[class='alert alert-success alert-dismissible']") private WebElement confirmationPopup;
     @FindBy(xpath="//button[@class='btn btn-inverse btn-block btn-lg dropdown-toggle']") private WebElement cart2;
     @FindBy(xpath="//button/i[@class='fa fa-times']") private WebElement closeicon;
-    @FindBy(xpath="//i[@class='fa fa-times']") private WebElement removeIcon;
+    @FindBy(xpath="//i[@class='fa fa-times']") private List<WebElement> removeIcons;
     @FindBy(xpath="//p[text()='Your wish list is empty.']") private WebElement emptyWishlistMessage;    
 
-    public void clickOnAddtoCartBtn() {
-        ww.until(ExpectedConditions.elementToBeClickable(addtoCartBtn)).click();
+    public void clickOnFirstAddtoCartBtn() {
+        ww.until(ExpectedConditions.elementToBeClickable(addtoCartBtns.get(0))).click();
     }
 
    public void VerifyPopUp() {
@@ -49,8 +51,8 @@ public class wishListPage extends basePage{
         return productPrice.getText();
     }
     
-    public void clickOnRemoveIcon() {
-        ww.until(ExpectedConditions.elementToBeClickable(removeIcon)).click();
+    public void clickOnFirstRemoveIcon() {
+        ww.until(ExpectedConditions.elementToBeClickable(removeIcons.get(0))).click();
     }
 
     public String getEmptyWishlistMessage() {

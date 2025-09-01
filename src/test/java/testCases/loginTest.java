@@ -16,7 +16,6 @@ public class loginTest extends baseClass{
 	@Test
 	public void loginTestApp() {
 		lp = new landingPage(driver);
-		lp.clickOnUserdd();
 		lp.clickOnLogin();
 		
 		logP = new loginPage(driver);

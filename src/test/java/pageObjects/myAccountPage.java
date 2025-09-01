@@ -12,7 +12,7 @@ public class myAccountPage extends basePage{
 		super(driver);
 	}
 	
-	@FindBy(xpath="//span[text()='My Account']") private WebElement myAccountDropdown;
+	@FindBy(xpath="//a[@title='My Account']") private WebElement myAccountDropdown;
     @FindBy(xpath="//a[text()='Logout']") private WebElement logoutLink;
     @FindBy(xpath="//a[text()='Continue']") private WebElement continueButton;
     @FindBy(name="search") private WebElement searchField;
@@ -20,13 +20,11 @@ public class myAccountPage extends basePage{
     @FindBy(xpath="//i[@class='fa fa-search']") private WebElement searchBtn;
 
     public void clickOnMyAccountDropdown() {
-        ww.until(ExpectedConditions.elementToBeClickable(myAccountDropdown));
-        myAccountDropdown.click();
+        ww.until(ExpectedConditions.elementToBeClickable(myAccountDropdown)).click();  
     }
 
     public void clickOnLogout() {
-        ww.until(ExpectedConditions.elementToBeClickable(logoutLink));
-        logoutLink.click();
+        ww.until(ExpectedConditions.elementToBeClickable(logoutLink)).click();  
     }
 
     public void clickOnContinue() {
@@ -35,10 +33,9 @@ public class myAccountPage extends basePage{
     }
 
     public void SearchForProduct(String pName) {
-        // Highlight: Wait for search field visibility
         ww.until(ExpectedConditions.visibilityOf(searchField));
         searchField.sendKeys(pName);
-        searchBtn.click();
+        ww.until(ExpectedConditions.elementToBeClickable(searchBtn)).click();
     }
 
     public void clickOnProduct() {

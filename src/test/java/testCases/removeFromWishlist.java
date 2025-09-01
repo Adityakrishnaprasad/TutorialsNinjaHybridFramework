@@ -13,7 +13,7 @@ public class removeFromWishlist extends baseClass{
     @Test
     public void RemoveFromWishList() {
         wlp = new wishListPage(driver);
-        wlp.clickOnRemoveIcon();
+        wlp.clickOnFirstRemoveIcon();
         String actualMessage = wlp.getEmptyWishlistMessage();
         String expectedMessage = "Your wish list is empty.";
         Assert.assertEquals(actualMessage, expectedMessage, "Wishlist is not empty after removing the product.");

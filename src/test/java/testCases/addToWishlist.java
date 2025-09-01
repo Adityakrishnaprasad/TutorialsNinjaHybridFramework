@@ -11,7 +11,7 @@ public class addToWishlist extends baseClass{
 	@Test
 	public void AddtoWishList() {
 	 wlp = new wishListPage(driver);
-	 wlp.clickOnAddtoCartBtn();
+	 wlp.clickOnFirstAddtoCartBtn();
 	 wlp.VerifyPopUp();
 	 wlp.clickOnCart2();
 	 wlp.closeIcon();
