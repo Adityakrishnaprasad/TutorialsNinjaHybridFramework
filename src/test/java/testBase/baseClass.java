@@ -51,7 +51,7 @@ public class baseClass {
                 throw new IllegalArgumentException("Browser not supported: " + browser);
         }
 
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
         driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(40));
         driver.get(configurationReader.get("baseURL"));
     }
