@@ -9,6 +9,8 @@ This is a simple Hybrid Automation Framework for the TutorialsNinja e-commerce w
         Product Search
         
         Add to Wishlist
+        
+        Remove from Wishlist
 
 
 🔧 Technologies Used
