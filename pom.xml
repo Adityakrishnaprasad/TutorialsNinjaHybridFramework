@@ -1,6 +1,6 @@
 <project xmlns="https://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	xsi:schemaLocation="https://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>testingpurpose</groupId>
 	<artifactId>TutorialsNinjaHybridFrameWork</artifactId>
@@ -59,7 +59,7 @@
 			<artifactId>poi-ooxml</artifactId>
 			<version>5.4.1</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
@@ -83,18 +83,18 @@
 			<artifactId>allure-testng</artifactId>
 			<version>2.29.1</version>
 		</dependency>
-		
+
 		<dependency>
-		  <groupId>io.github.cdimascio</groupId>
-		  <artifactId>dotenv-java</artifactId>
-		  <version>3.0.0</version>
-        </dependency>
-        
-        <dependency>
-          <groupId>org.slf4j</groupId>
-          <artifactId>slf4j-nop</artifactId>
-          <version>2.0.17</version>
-        </dependency>
+			<groupId>io.github.cdimascio</groupId>
+			<artifactId>dotenv-java</artifactId>
+			<version>3.0.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-nop</artifactId>
+			<version>2.0.17</version>
+		</dependency>
 
 	</dependencies>
 

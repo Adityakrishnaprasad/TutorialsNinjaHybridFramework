@@ -1,5 +1,6 @@
 package pageObjects;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -22,13 +23,14 @@ public class productListingPage extends basePage {
 
    
     public void verifyText() {
-        Assert.assertEquals(prodName.getText(),"Samsung Galaxy Tab 10.1","else product is not matching");
+    	  ww.until(ExpectedConditions.visibilityOf(prodName));
+          Assert.assertEquals(prodName.getText().trim(), "Samsung Galaxy Tab 10.1", "Product name is not matching!");
     }
 
     // Highlight: Rename getPrize to getPrice, return price instead of asserting
     public String getPrice() {
-        ww.until(ExpectedConditions.visibilityOf(priceField));
-        return priceField.getText();
+    	 ww.until(ExpectedConditions.visibilityOf(priceField));
+         return priceField.getText().trim();
     }
 
     public void assertPrice(String expectedPrice) {
@@ -36,15 +38,28 @@ public class productListingPage extends basePage {
     }
 
     public void clickWishlistAndVerifyAlert() {
-        ww.until(ExpectedConditions.elementToBeClickable(wishlist)).click();
-        WebElement alert = ww.until(ExpectedConditions.visibilityOf(wishlistAlertMessage));
-        Assert.assertTrue(alert.isDisplayed(), "Alert message is not displayed");
+    	try {
+            ww.until(ExpectedConditions.elementToBeClickable(wishlist)).click();
+        } catch (Exception e) {
+            ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].scrollIntoView({block: 'center'}); arguments[0].click();", wishlist
+            );
+        }
+        ww.until(ExpectedConditions.visibilityOf(wishlistAlertMessage));
+        Assert.assertTrue(wishlistAlertMessage.isDisplayed(), "Wishlist alert message is not displayed");
     }
     
     public void clickOnWishlist2() {
-        ww.until(ExpectedConditions.elementToBeClickable(wishlist2)).click();
-    }
+    	 try {
+             ww.until(ExpectedConditions.elementToBeClickable(wishlist2)).click();
+         } catch (Exception e) {
+             ((JavascriptExecutor) driver).executeScript(
+                 "arguments[0].scrollIntoView({block: 'center'}); arguments[0].click();", wishlist2
+             );
+         }
+     }
+    
+ }
 	
 	
 
-}
