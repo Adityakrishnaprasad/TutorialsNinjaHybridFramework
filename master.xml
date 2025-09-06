@@ -23,6 +23,7 @@
     <!-- Firefox Tests -->
     <!--  <test name="FirefoxTest">
         <parameter name="browser" value="firefox"/>
+        
         <classes>
             <class name="testCases.registerAnAccount"/>
             <class name="testCases.logOutTest"/>
