@@ -28,13 +28,13 @@ public class loginPage extends basePage{
     }
 
     public void clickLoginButton() {
-        ww.until(ExpectedConditions.elementToBeClickable(loginButton));
+    	customWait.until(ExpectedConditions.elementToBeClickable(loginButton));
         loginButton.click();
     }
 
     public void verifyLoginSuccess() {
  	   // Wait for the My Account header to be visible after login
-        ww.until(ExpectedConditions.visibilityOf(myAccountHeader));
+    	customWait.until(ExpectedConditions.visibilityOf(myAccountHeader));
         Assert.assertTrue(myAccountHeader.isDisplayed(), "Login failed, My Account header not displayed.");
     }
 

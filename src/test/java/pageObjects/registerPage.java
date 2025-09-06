@@ -59,17 +59,17 @@ public class registerPage  extends basePage{
     }
 
     public void clickCheckbox() {
-    	ww.until(ExpectedConditions.elementToBeClickable(checkboxField)).click();
+    	customWait.until(ExpectedConditions.elementToBeClickable(checkboxField)).click();
     }
 
     public void clickContinueButton() {
         
-        ww.until(ExpectedConditions.elementToBeClickable(continueButton));
+    	customWait.until(ExpectedConditions.elementToBeClickable(continueButton));
         continueButton.click();
     }
 
     public void verifyText() {
-        ww.until(ExpectedConditions.visibilityOf(confirmTxt));
+    	customWait.until(ExpectedConditions.visibilityOf(confirmTxt));
         String actTxt=confirmTxt.getText();
         Assert.assertEquals(actTxt, "Your Account Has Been Created!");
     }

@@ -19,15 +19,15 @@ public class landingPage extends basePage{
 
     //clicks on user dropdown and clicks on register user link
     public void clickOnuserReg() {
-    	ww.until(ExpectedConditions.elementToBeClickable(userdd)).click();
-        ww.until(ExpectedConditions.elementToBeClickable(regLink)).click();
+    	customWait.until(ExpectedConditions.elementToBeClickable(userdd)).click();
+    	customWait.until(ExpectedConditions.elementToBeClickable(regLink)).click();
     }
     
     
     //clicks on user dropdown and clicks on login link
     public void clickOnLogin() {
-    	ww.until(ExpectedConditions.elementToBeClickable(userdd)).click();
-        ww.until(ExpectedConditions.elementToBeClickable(login)).click();
+    	customWait.until(ExpectedConditions.elementToBeClickable(userdd)).click();
+    	customWait.until(ExpectedConditions.elementToBeClickable(login)).click();
     }
 }
 

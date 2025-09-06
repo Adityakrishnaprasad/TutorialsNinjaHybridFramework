@@ -25,7 +25,7 @@ public class wishListPage extends basePage{
 
     public void clickOnFirstAddtoCartBtn() {
     	 try {
-             ww.until(ExpectedConditions.elementToBeClickable(addToCartBtn)).click();
+    		 customWait.until(ExpectedConditions.elementToBeClickable(addToCartBtn)).click();
          } catch (Exception e) {
              ((JavascriptExecutor) driver).executeScript(
                  "arguments[0].scrollIntoView({block: 'center'}); arguments[0].click();", addToCartBtn
@@ -35,36 +35,36 @@ public class wishListPage extends basePage{
 
     
    public void VerifyPopUp() {
-	    ww.until(ExpectedConditions.visibilityOf(confirmationPopup));
+	   customWait.until(ExpectedConditions.visibilityOf(confirmationPopup));
 	    Assert.assertTrue(confirmationPopup.isDisplayed(), "Confirmation popup is not displayed");
    }
 
    
     public void clickOnCart2() {
-        ww.until(ExpectedConditions.elementToBeClickable(cart2)).click();
+    	customWait.until(ExpectedConditions.elementToBeClickable(cart2)).click();
     }
 
     
     public void closeIcon() {
-        ww.until(ExpectedConditions.elementToBeClickable(closeicon)).click();
+    	customWait.until(ExpectedConditions.elementToBeClickable(closeicon)).click();
     }
 
    
     public String getProductName() {
-    	 ww.until(ExpectedConditions.visibilityOf(productName));
+    	customWait.until(ExpectedConditions.visibilityOf(productName));
          return productName.getText();
     }
 
     
     public String getProductPrice() {
-    	ww.until(ExpectedConditions.visibilityOf(productPrice));
+    	customWait.until(ExpectedConditions.visibilityOf(productPrice));
         return productPrice.getText();
     }
     
     
     public void clickOnFirstRemoveIcon() {
     	try {
-            ww.until(ExpectedConditions.elementToBeClickable(removeIcon)).click();
+    		customWait.until(ExpectedConditions.elementToBeClickable(removeIcon)).click();
         } catch (Exception e) {
             ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].scrollIntoView({block: 'center'}); arguments[0].click();", removeIcon
@@ -73,7 +73,7 @@ public class wishListPage extends basePage{
     }
 
     public String getEmptyWishlistMessage() {
-        ww.until(ExpectedConditions.visibilityOf(emptyWishlistMessage));
+    	customWait.until(ExpectedConditions.visibilityOf(emptyWishlistMessage));
         return emptyWishlistMessage.getText();
     }   
     
