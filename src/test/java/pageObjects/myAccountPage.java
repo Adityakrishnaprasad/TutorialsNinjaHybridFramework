@@ -32,28 +32,28 @@ public class myAccountPage extends basePage {
     private WebElement searchBtn;
 
     public void clickOnMyAccountDropdown() {
-        ww.until(ExpectedConditions.elementToBeClickable(myAccountDropdown)).click();  
+    	customWait.until(ExpectedConditions.elementToBeClickable(myAccountDropdown)).click();  
     }
 
     public void clickOnLogout() {
-        ww.until(ExpectedConditions.elementToBeClickable(logoutLink)).click();  
+    	customWait.until(ExpectedConditions.elementToBeClickable(logoutLink)).click();  
     }
 
     public void clickOnContinue() {
-        ww.until(ExpectedConditions.elementToBeClickable(continueButton)).click();
+    	customWait.until(ExpectedConditions.elementToBeClickable(continueButton)).click();
     }
 
     public void SearchForProduct(String pName) {
-        ww.until(ExpectedConditions.visibilityOf(searchField));
-        searchField.clear();   // 🔹 avoids appending text
+    	customWait.until(ExpectedConditions.visibilityOf(searchField));
+        searchField.clear();   
         searchField.sendKeys(pName);
-        ww.until(ExpectedConditions.elementToBeClickable(searchBtn)).click();
+        customWait.until(ExpectedConditions.elementToBeClickable(searchBtn)).click();
     }
 
     public void clickOnProduct() {
         try {
-            ww.until(ExpectedConditions.visibilityOf(prod));
-            ww.until(ExpectedConditions.elementToBeClickable(prod)).click();
+        	customWait.until(ExpectedConditions.visibilityOf(prod));
+        	customWait.until(ExpectedConditions.elementToBeClickable(prod)).click();
         } catch (Exception e) {
             ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].scrollIntoView({block: 'center'}); arguments[0].click();", prod
@@ -62,7 +62,7 @@ public class myAccountPage extends basePage {
     }
     
     public String getNameOfProduct() {
-        ww.until(ExpectedConditions.visibilityOf(prod));
+    	customWait.until(ExpectedConditions.visibilityOf(prod));
         return prod.getText();
     }
 }

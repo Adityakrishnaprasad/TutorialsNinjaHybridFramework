@@ -23,13 +23,13 @@ public class productListingPage extends basePage {
 
    
     public void verifyText() {
-    	  ww.until(ExpectedConditions.visibilityOf(prodName));
+    	customWait.until(ExpectedConditions.visibilityOf(prodName));
           Assert.assertEquals(prodName.getText().trim(), "Samsung Galaxy Tab 10.1", "Product name is not matching!");
     }
 
     // Highlight: Rename getPrize to getPrice, return price instead of asserting
     public String getPrice() {
-    	 ww.until(ExpectedConditions.visibilityOf(priceField));
+    	customWait.until(ExpectedConditions.visibilityOf(priceField));
          return priceField.getText().trim();
     }
 
@@ -39,19 +39,19 @@ public class productListingPage extends basePage {
 
     public void clickWishlistAndVerifyAlert() {
     	try {
-            ww.until(ExpectedConditions.elementToBeClickable(wishlist)).click();
+    		customWait.until(ExpectedConditions.elementToBeClickable(wishlist)).click();
         } catch (Exception e) {
             ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].scrollIntoView({block: 'center'}); arguments[0].click();", wishlist
             );
         }
-        ww.until(ExpectedConditions.visibilityOf(wishlistAlertMessage));
+    	customWait.until(ExpectedConditions.visibilityOf(wishlistAlertMessage));
         Assert.assertTrue(wishlistAlertMessage.isDisplayed(), "Wishlist alert message is not displayed");
     }
     
     public void clickOnWishlist2() {
     	 try {
-             ww.until(ExpectedConditions.elementToBeClickable(wishlist2)).click();
+    		 customWait.until(ExpectedConditions.elementToBeClickable(wishlist2)).click();
          } catch (Exception e) {
              ((JavascriptExecutor) driver).executeScript(
                  "arguments[0].scrollIntoView({block: 'center'}); arguments[0].click();", wishlist2
@@ -60,6 +60,7 @@ public class productListingPage extends basePage {
      }
     
  }
+
 	
 	
 
