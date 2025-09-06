@@ -25,3 +25,5 @@ This is a simple Hybrid Automation Framework for the TutorialsNinja e-commerce w
       
       Allure Reports
 
+
+Note:- I have added the user Guide Document which gives details about my current Hybrid automation framework
