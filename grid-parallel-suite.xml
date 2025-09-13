@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="LocalSequentialSuite" parallel="false" thread-count="1">
+<suite name="GridParallelSuite" parallel="tests" thread-count="3">
     <listeners>
         <listener class-name="utilities.Listeners"/>
         <listener class-name="io.qameta.allure.testng.AllureTestNg"/>
         <listener class-name="utilities.RetryHandler"/>
     </listeners>
 
-    <parameter name="execution_env" value="local"/>
+    <parameter name="execution_env" value="remote"/>
 
     <!-- Chrome Tests -->
     <test name="ChromeTest">
@@ -23,7 +23,7 @@
     </test>
 
     <!-- Firefox Tests -->
-    <test name="FirefoxTest">
+   <test name="FirefoxTest">
         <parameter name="browser" value="firefox"/>
         <classes>
             <class name="testCases.registerAnAccount"/>
@@ -33,7 +33,7 @@
             <class name="testCases.addToWishlist"/>
             <class name="testCases.removeFromWishlist"/>
         </classes>
-    </test>
+    </test> 
 
     <!-- Edge Tests -->
     <test name="EdgeTest">

@@ -17,13 +17,13 @@ public class registerAnAccount extends baseClass {
     public void CreateUser() {
         LoggerLoad.info("===== Starting test: CreateUser =====");
 
-        lp = new landingPage(driver);
+        lp = new landingPage(getDriver());
         LoggerLoad.info("Step 1: Navigate to Register page");
         lp.clickOnuserReg();
 
         String pwd = DataGenerator.getPassword();
 
-        rp = new registerPage(driver);
+        rp = new registerPage(getDriver());
         LoggerLoad.info("Step 2: Fill out registration form with random test data");
         rp.enterFirstName(DataGenerator.getFirstName());
         rp.enterLastName(DataGenerator.getLastName());

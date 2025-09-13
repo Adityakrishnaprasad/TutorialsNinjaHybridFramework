@@ -16,7 +16,7 @@ public class searchAndAddtoWishlistaProduct extends baseClass {
     public void searchandaddtowishlist() throws InterruptedException {
         LoggerLoad.info("===== Starting test: searchandaddtowishlist =====");
 
-        map = new myAccountPage(driver);
+        map = new myAccountPage(getDriver());
         String productToSearch = "Samsung Galaxy Tab 10.1";
 
         LoggerLoad.info("Step 1: Search for product: " + productToSearch);
@@ -25,7 +25,7 @@ public class searchAndAddtoWishlistaProduct extends baseClass {
         LoggerLoad.info("Step 2: Click on product from search results");
         map.clickOnProduct();
 
-        plp = new productListingPage(driver);
+        plp = new productListingPage(getDriver());
 
         LoggerLoad.info("Step 3: Verify product details");
         plp.verifyText();

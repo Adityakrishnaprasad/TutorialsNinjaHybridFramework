@@ -20,11 +20,11 @@ public class loginTest extends baseClass {
         LoggerLoad.info("===== Starting test: loginTestApp =====");
         LoggerLoad.info("Step 1: Navigate to Login page");
 
-        lp = new landingPage(driver);
+        lp = new landingPage(getDriver());
         lp.clickOnLogin();
 
         LoggerLoad.info("Step 2: Enter login credentials");
-        logP = new loginPage(driver);
+        logP = new loginPage(getDriver());
         logP.enterEmail(user);
         logP.enterPassword(pass);
 

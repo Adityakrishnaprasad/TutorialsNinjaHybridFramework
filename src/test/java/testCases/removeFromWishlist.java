@@ -14,7 +14,7 @@ public class removeFromWishlist extends baseClass {
     public void RemoveFromWishList() {
         LoggerLoad.info("===== Starting test: RemoveFromWishList =====");
 
-        wlp = new wishListPage(driver);
+        wlp = new wishListPage(getDriver());
 
         LoggerLoad.info("Step 1: Remove first product from wishlist");
         wlp.clickOnFirstRemoveIcon();
