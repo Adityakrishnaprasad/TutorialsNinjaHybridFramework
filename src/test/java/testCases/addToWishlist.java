@@ -15,7 +15,7 @@ public class addToWishlist extends baseClass {
     	
         LoggerLoad.info("===== Starting test: AddtoWishList =====");
 
-        wlp = new wishListPage(driver);
+        wlp = new wishListPage(getDriver());
 
         LoggerLoad.info("Step 1: Adding first product to wishlist");
         wlp.clickOnFirstAddtoCartBtn();

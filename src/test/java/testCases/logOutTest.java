@@ -12,7 +12,7 @@ public class logOutTest extends baseClass {
     public void logOutTestapp() {
         LoggerLoad.info("===== Starting test: logOutTestapp =====");
 
-        myAccountPage myAccPage = new myAccountPage(driver);
+        myAccountPage myAccPage = new myAccountPage(getDriver());
 
         LoggerLoad.info("Step 1: Open 'My Account' dropdown");
         myAccPage.clickOnMyAccountDropdown();
