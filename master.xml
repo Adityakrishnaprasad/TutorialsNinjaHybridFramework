@@ -20,7 +20,7 @@
             <class name="testCases.addToWishlist"/>
             <class name="testCases.removeFromWishlist"/>
         </classes>
-    </test>
+    </test> 
 
     <!-- Firefox Tests -->
     <test name="FirefoxTest">
