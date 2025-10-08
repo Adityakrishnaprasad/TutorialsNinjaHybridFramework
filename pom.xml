@@ -20,7 +20,7 @@
 					<version>3.5.3</version>
 					<configuration>
 						<suiteXmlFiles>
-							<suiteXmlFile>master.xml</suiteXmlFile>
+							<suiteXmlFile>grid-parallel-suite.xml</suiteXmlFile>
 						</suiteXmlFiles>
 					</configuration>
 				</plugin>
