@@ -10,20 +10,7 @@
     <parameter name="execution_env" value="local"/>
 
     <!-- Chrome Tests -->
-    <test name="ChromeTest">
-        <parameter name="browser" value="chrome"/>
-        <classes>
-            <class name="testCases.registerAnAccount"/>
-            <class name="testCases.logOutTest"/>
-            <class name="testCases.loginTest"/>
-            <class name="testCases.searchAndAddtoWishlistaProduct"/>
-            <class name="testCases.addToWishlist"/>
-            <class name="testCases.removeFromWishlist"/>
-        </classes>
-    </test> 
-
-    <!-- Firefox Tests -->
-    <test name="FirefoxTest">
+   <!-- <test name="FirefoxTest">
         <parameter name="browser" value="firefox"/>
         <classes>
             <class name="testCases.registerAnAccount"/>
@@ -33,10 +20,23 @@
             <class name="testCases.addToWishlist"/>
             <class name="testCases.removeFromWishlist"/>
         </classes>
-    </test>
+    </test> -->
+
+    <!-- Firefox Tests -->
+   <!-- <test name="ChromeTest">
+        <parameter name="browser" value="chrome"/>
+        <classes>
+            <class name="testCases.registerAnAccount"/>
+            <class name="testCases.logOutTest"/>
+            <class name="testCases.loginTest"/>
+            <class name="testCases.searchAndAddtoWishlistaProduct"/>
+            <class name="testCases.addToWishlist"/>
+            <class name="testCases.removeFromWishlist"/>
+        </classes>
+    </test>  -->
 
     <!-- Edge Tests -->
-    <test name="EdgeTest">
+     <test name="EdgeTest">
         <parameter name="browser" value="edge"/>
         <classes>
             <class name="testCases.registerAnAccount"/>
@@ -46,5 +46,5 @@
             <class name="testCases.addToWishlist"/>
             <class name="testCases.removeFromWishlist"/>
         </classes>
-    </test>
+    </test> 
 </suite>

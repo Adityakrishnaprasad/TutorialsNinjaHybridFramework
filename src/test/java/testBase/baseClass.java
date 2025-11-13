@@ -33,9 +33,8 @@ public class baseClass {
     // ✅ still expose driver, so no need to change test/page code
     public static WebDriver driver;
 
-    private static void setDriver(WebDriver driverInstance) {
-        tlDriver.set(driverInstance);
-        driver = tlDriver.get();   // driver always points to current thread’s WebDriver
+    private static void setDriver(WebDriver driver) {
+        tlDriver.set(driver);
     }
 
     public static WebDriver getDriver() {
@@ -49,44 +48,58 @@ public class baseClass {
         LoggerLoad.info("===== Test Execution Started =====");
         LoggerLoad.info("Selected Browser: " + browser);
 
-        WebDriver driverInstance = null;
-
+        // allow environment override via System env var if provided
+        // (optional) You already compute hubURL below; this is for completeness.
         // Grid environment
         if (configurationReader.get("execution_env").equalsIgnoreCase("remote")) {
             LoggerLoad.info("Running scripts in grid environment");
+
+            // check if SELENIUM_HUB_URL is provided from Docker
+            String hubURL = System.getenv("SELENIUM_HUB_URL");
+            if (hubURL == null || hubURL.isEmpty()) {
+                hubURL = configurationReader.get("gridURL"); // fallback to config file
+            }
+
+            LoggerLoad.info("Using Hub URL: " + hubURL);
             DesiredCapabilities dcp = new DesiredCapabilities();
 
             switch (browser.toLowerCase()) {
-                case "chrome":
+                case "chrome": {
                     ChromeOptions co = new ChromeOptions();
                     co.setPageLoadStrategy(PageLoadStrategy.EAGER);
                     co.addArguments("--start-maximized", "--remote-allow-origins=*");
                     dcp.setCapability(ChromeOptions.CAPABILITY, co);
                     dcp.setBrowserName("chrome");
-                    driverInstance = new RemoteWebDriver(new URL(configurationReader.get("gridURL")), dcp);
+                    driver = new RemoteWebDriver(new URL(hubURL), dcp);
+                    setDriver(driver);
                     break;
+                }
 
-                case "edge":
+                case "edge": {
                     EdgeOptions eo = new EdgeOptions();
                     eo.setPageLoadStrategy(PageLoadStrategy.EAGER);
                     dcp.setCapability(EdgeOptions.CAPABILITY, eo);
                     dcp.setBrowserName("MicrosoftEdge");
-                    driverInstance = new RemoteWebDriver(new URL(configurationReader.get("gridURL")), dcp);
+                    driver = new RemoteWebDriver(new URL(hubURL), dcp);
+                    setDriver(driver);
                     break;
+                }
 
-                case "firefox":
+                case "firefox": {
                     FirefoxOptions fo = new FirefoxOptions();
                     fo.setPageLoadStrategy(PageLoadStrategy.EAGER);
                     dcp.setCapability(FirefoxOptions.FIREFOX_OPTIONS, fo);
                     dcp.setBrowserName("firefox");
-                    driverInstance = new RemoteWebDriver(new URL(configurationReader.get("gridURL")), dcp);
+                    driver = new RemoteWebDriver(new URL(hubURL), dcp);
+                    setDriver(driver);
                     break;
+                }
 
                 default:
                     throw new IllegalArgumentException("Choose a valid browser");
             }
 
-            driverInstance.manage().window().maximize();
+            driver.manage().window().maximize();
         }
 
         // Local environment
@@ -99,23 +112,26 @@ public class baseClass {
                     ChromeOptions co = new ChromeOptions();
                     co.setPageLoadStrategy(PageLoadStrategy.EAGER);
                     co.addArguments("--start-maximized", "--remote-allow-origins=*");
-                    driverInstance = new ChromeDriver(co);
+                    driver = new ChromeDriver(co);
+                    setDriver(driver);
                     break;
 
                 case "firefox":
                     WebDriverManager.firefoxdriver().setup();
                     FirefoxOptions fo = new FirefoxOptions();
                     fo.setPageLoadStrategy(PageLoadStrategy.EAGER);
-                    driverInstance = new FirefoxDriver(fo);
-                    driverInstance.manage().window().maximize();
+                    driver = new FirefoxDriver(fo);
+                    setDriver(driver);
+                    getDriver().manage().window().maximize();
                     break;
 
                 case "edge":
                     WebDriverManager.edgedriver().setup();
                     EdgeOptions eo = new EdgeOptions();
                     eo.setPageLoadStrategy(PageLoadStrategy.EAGER);
-                    driverInstance = new EdgeDriver(eo);
-                    driverInstance.manage().window().maximize();
+                    driver = new EdgeDriver(eo);
+                    setDriver(driver);
+                    getDriver().manage().window().maximize();
                     break;
 
                 default:
@@ -124,13 +140,10 @@ public class baseClass {
             }
         }
 
-        //  store driver in ThreadLocal
-        setDriver(driverInstance);
-
         // Common setup
-        driver.manage().deleteAllCookies();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
-        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(40));
+        getDriver().manage().deleteAllCookies();
+        getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+        getDriver().manage().timeouts().pageLoadTimeout(Duration.ofSeconds(40));
 
         String url = configurationReader.get("baseURL");
         LoggerLoad.info("Navigating to: " + url);
@@ -158,11 +171,16 @@ public class baseClass {
 
     @AfterTest(alwaysRun = true)
     public void TearDown() {
-        WebDriver driverInstance = getDriver();
-        if (driverInstance != null) {
+
+        if (getDriver() != null) {
             LoggerLoad.info("Closing the browser and quitting WebDriver...");
-            driverInstance.quit();
-            tlDriver.remove();
+            try {
+                getDriver().quit();
+            } catch (Exception e) {
+                LoggerLoad.error("Error while quitting driver: " + e.getMessage());
+            } finally {
+                tlDriver.remove();
+            }
             LoggerLoad.info("===== Test Execution Finished =====");
         }
     }
