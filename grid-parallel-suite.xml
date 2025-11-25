@@ -45,6 +45,6 @@
             <class name="testCases.searchAndAddtoWishlistaProduct"/>
             <class name="testCases.addToWishlist"/>
             <class name="testCases.removeFromWishlist"/>
-        </classes>
+        </classes> 
     </test>
 </suite>

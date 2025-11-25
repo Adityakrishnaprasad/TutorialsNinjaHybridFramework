@@ -1,14 +1,13 @@
-version: "3.8"
-
 services:
   selenium-hub:
-    image: selenium/hub:4.14.0
-    container_name: selenium-hub
+    image: selenium/hub:latest
+    container_name: selenium-hub-new
     ports:
-      - "4444:4444"
+      - "6666:4444"
 
   chrome:
-    image: selenium/node-chrome:4.14.0
+    image: selenium/node-chrome:latest
+    container_name: chrome-node-new
     shm_size: 2gb
     depends_on:
       - selenium-hub
@@ -18,13 +17,50 @@ services:
       - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
     volumes:
       - /dev/shm:/dev/shm
+    ports:
+      - "5900:5900"
+      - "9000:9000"
+
+  firefox:
+    image: selenium/node-firefox:latest
+    container_name: firefox-node-new
+    shm_size: 2gb
+    depends_on:
+      - selenium-hub
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+    volumes:
+      - /dev/shm:/dev/shm
+    ports:
+      - "5901:5900"
+      - "9001:9000"
+
+  edge:
+    image: selenium/node-edge:latest
+    container_name: edge-node-new
+    shm_size: 2gb
+    depends_on:
+      - selenium-hub
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+    volumes:
+      - /dev/shm:/dev/shm
+    ports:
+      - "5902:5900"
+      - "9002:9000"
 
   test-runner:
     image: maven:3.9.4-eclipse-temurin-17
-    container_name: automation-runner
+    container_name: automation-runner-new
     depends_on:
       - selenium-hub
       - chrome
+      - firefox
+      - edge
     working_dir: /project
     volumes:
       - .:/project
@@ -33,4 +69,4 @@ services:
       - SELENIUM_HUB_URL=http://selenium-hub:4444
       - BROWSER=chrome
       - EXECUTION_ENV=remote
-    command: mvn clean test -Dbrowser=chrome -Dexecution_env=remote -Dallure.results.directory=./allure-results
+    command: mvn clean test -Dsurefire.suiteXmlFiles=grid-parallel-suite.xml
