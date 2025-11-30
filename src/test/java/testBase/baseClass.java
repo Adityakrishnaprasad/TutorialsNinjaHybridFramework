@@ -17,20 +17,23 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.ITestResult;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Parameters;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import io.qameta.allure.Allure;
 import utilities.AllureEnvironmentWriter;
-import utilities.configurationReader;
 import utilities.LoggerLoad;
+import utilities.configurationReader;
 
 public class baseClass {
 
     // ThreadLocal WebDriver
     private static final ThreadLocal<WebDriver> tlDriver = new ThreadLocal<>();
 
-    // ✅ still expose driver, so no need to change test/page code
+    // still expose driver, so no need to change test/page code
     public static WebDriver driver;
 
     private static void setDriver(WebDriver driver) {
