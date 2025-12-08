@@ -52,7 +52,6 @@ public class baseClass {
         LoggerLoad.info("Selected Browser: " + browser);
 
         // allow environment override via System env var if provided
-        // (optional) You already compute hubURL below; this is for completeness.
         // Grid environment
         if (configurationReader.get("execution_env").equalsIgnoreCase("remote")) {
             LoggerLoad.info("Running scripts in grid environment");
@@ -69,6 +68,7 @@ public class baseClass {
             switch (browser.toLowerCase()) {
                 case "chrome": {
                     ChromeOptions co = new ChromeOptions();
+                    co.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
                     co.setPageLoadStrategy(PageLoadStrategy.EAGER);
                     co.addArguments("--start-maximized", "--remote-allow-origins=*");
                     dcp.setCapability(ChromeOptions.CAPABILITY, co);
@@ -80,6 +80,7 @@ public class baseClass {
 
                 case "edge": {
                     EdgeOptions eo = new EdgeOptions();
+                    eo.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
                     eo.setPageLoadStrategy(PageLoadStrategy.EAGER);
                     dcp.setCapability(EdgeOptions.CAPABILITY, eo);
                     dcp.setBrowserName("MicrosoftEdge");
@@ -113,6 +114,7 @@ public class baseClass {
                 case "chrome":
                     WebDriverManager.chromedriver().setup();
                     ChromeOptions co = new ChromeOptions();
+                    co.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
                     co.setPageLoadStrategy(PageLoadStrategy.EAGER);
                     co.addArguments("--start-maximized", "--remote-allow-origins=*");
                     driver = new ChromeDriver(co);
@@ -131,6 +133,7 @@ public class baseClass {
                 case "edge":
                     WebDriverManager.edgedriver().setup();
                     EdgeOptions eo = new EdgeOptions();
+                    eo.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
                     eo.setPageLoadStrategy(PageLoadStrategy.EAGER);
                     driver = new EdgeDriver(eo);
                     setDriver(driver);
