@@ -26,6 +26,9 @@ public class loginPage extends basePage {
     @FindBy(xpath = "//h2[text()='My Account']")
     private WebElement myAccountHeader;
 
+    /** 
+     * @param email
+     */
     public void enterEmail(String email) {
     	System.out.println();
         LoggerLoad.info("Entering email: " + email);
@@ -33,6 +36,9 @@ public class loginPage extends basePage {
         emailField.sendKeys(email);
     }
 
+    /** 
+     * @param password
+     */
     public void enterPassword(String password) {
         LoggerLoad.info("Entering password: [PROTECTED]");
         passwordField.clear();

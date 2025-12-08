@@ -4,7 +4,7 @@ import org.testng.annotations.Test;
 
 import pageObjects.myAccountPage;
 import testBase.baseClass;
-import utilities.LoggerLoad; // <-- import logger
+import utilities.LoggerLoad; 
 
 public class logOutTest extends baseClass {
     

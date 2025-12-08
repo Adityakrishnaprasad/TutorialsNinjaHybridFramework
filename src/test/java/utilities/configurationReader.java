@@ -20,7 +20,11 @@ public class configurationReader {
         }
     }
 
-	public static String get(String key) {
+	/** 
+     * @param key
+     * @return String
+     */
+    public static String get(String key) {
 		return dotenv.get(key);
 	}
 }

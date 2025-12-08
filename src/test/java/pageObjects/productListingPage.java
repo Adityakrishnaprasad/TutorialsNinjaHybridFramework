@@ -39,6 +39,9 @@ public class productListingPage extends basePage {
         LoggerLoad.info("Product name verified successfully: " + prodName.getText().trim());
     }
 
+    /** 
+     * @return String
+     */
     public String getPrice() {
         LoggerLoad.info("Fetching product price");
         customWait.until(ExpectedConditions.visibilityOf(priceField));
@@ -47,6 +50,9 @@ public class productListingPage extends basePage {
         return price;
     }
 
+    /** 
+     * @param expectedPrice
+     */
     public void assertPrice(String expectedPrice) {
         LoggerLoad.info("Asserting product price. Expected: " + expectedPrice);
         Assert.assertEquals(getPrice(), expectedPrice, "Product price does not match");

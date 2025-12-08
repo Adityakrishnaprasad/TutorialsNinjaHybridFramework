@@ -4,13 +4,12 @@
     <listeners>
         <listener class-name="utilities.Listeners"/>
         <listener class-name="io.qameta.allure.testng.AllureTestNg"/>
-        <listener class-name="utilities.RetryHandler"/>
     </listeners>
 
     <parameter name="execution_env" value="local"/>
 
-    <!-- Chrome Tests -->
-   <!-- <test name="FirefoxTest">
+    <!-- Firefox Tests -->
+    <!--<test name="FirefoxTest">
         <parameter name="browser" value="firefox"/>
         <classes>
             <class name="testCases.registerAnAccount"/>
@@ -20,9 +19,9 @@
             <class name="testCases.addToWishlist"/>
             <class name="testCases.removeFromWishlist"/>
         </classes>
-    </test> -->
+    </test>-->
 
-    <!-- Firefox Tests -->
+    <!-- Chrome Tests -->
    <!-- <test name="ChromeTest">
         <parameter name="browser" value="chrome"/>
         <classes>
@@ -33,7 +32,7 @@
             <class name="testCases.addToWishlist"/>
             <class name="testCases.removeFromWishlist"/>
         </classes>
-    </test>  -->
+    </test> -->
 
     <!-- Edge Tests -->
      <test name="EdgeTest">
@@ -46,5 +45,5 @@
             <class name="testCases.addToWishlist"/>
             <class name="testCases.removeFromWishlist"/>
         </classes>
-    </test> 
+    </test>
 </suite>

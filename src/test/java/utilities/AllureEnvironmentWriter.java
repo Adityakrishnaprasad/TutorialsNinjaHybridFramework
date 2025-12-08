@@ -1,12 +1,16 @@
 package utilities;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.LinkedHashSet;
+import java.util.Properties;
+
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
-
-import java.io.*;
-import java.nio.file.*;
-import java.util.*;
 
 public class AllureEnvironmentWriter {
     private static final String ALLURE_RESULTS_DIR = "allure-results";
@@ -14,6 +18,9 @@ public class AllureEnvironmentWriter {
 
     private static final LinkedHashSet<String> browsers = new LinkedHashSet<>();
 
+    /** 
+     * @param driver
+     */
     public static synchronized void writeEnv(WebDriver driver) {
         try {
             Path resultsDir = Paths.get(ALLURE_RESULTS_DIR);
@@ -51,6 +58,10 @@ public class AllureEnvironmentWriter {
         }
     }
 
+    /** 
+     * @param name
+     * @return String
+     */
     private static String formatName(String name) {
         if (name == null) return "Unknown";
         String n = name.toLowerCase();

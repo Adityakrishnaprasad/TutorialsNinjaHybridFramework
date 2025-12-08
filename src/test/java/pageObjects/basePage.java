@@ -1,6 +1,7 @@
 package pageObjects;
 
 import java.time.Duration;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.FluentWait;
@@ -33,6 +34,9 @@ public class basePage {
         LoggerLoad.info("Custom wait configured: timeout=" + customTimeoutSeconds + "s, polling=" + customPollingMillis + "ms");
     }
 
+    /** 
+     * @param seconds
+     */
     // Adjust timeout dynamically
     protected void setCustomWaitTimeout(long seconds) {
         this.customTimeoutSeconds = seconds;
@@ -45,6 +49,9 @@ public class basePage {
         LoggerLoad.info("Custom wait timeout updated: " + seconds + " seconds");
     }
 
+    /** 
+     * @param millis
+     */
     // Adjust polling interval dynamically
     protected void setCustomWaitPolling(long millis) {
         this.customPollingMillis = millis;
