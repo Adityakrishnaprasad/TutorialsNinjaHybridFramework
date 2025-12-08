@@ -36,14 +36,24 @@ public class baseClass {
     // still expose driver, so no need to change test/page code
     public static WebDriver driver;
 
+    /** 
+     * @param driver
+     */
     private static void setDriver(WebDriver driver) {
         tlDriver.set(driver);
     }
 
+    /** 
+     * @return WebDriver
+     */
     public static WebDriver getDriver() {
         return tlDriver.get();
     }
 
+    /** 
+     * @param browser
+     * @throws MalformedURLException
+     */
     @Parameters({"browser"})
     @BeforeTest(alwaysRun = true)
     public void setUp(String browser) throws MalformedURLException {
@@ -161,6 +171,9 @@ public class baseClass {
         LoggerLoad.info("Browser setup completed successfully.");
     }
 
+    /** 
+     * @param result
+     */
     @AfterMethod(alwaysRun = true)
     public void attachLogsToAllure(ITestResult result) {
         try {

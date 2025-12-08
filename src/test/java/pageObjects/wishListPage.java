@@ -69,6 +69,9 @@ public class wishListPage extends basePage {
         customWait.until(ExpectedConditions.elementToBeClickable(closeicon)).click();
     }
 
+    /** 
+     * @return String
+     */
     public String getProductName() {
         LoggerLoad.info("Fetching product name from wishlist");
         customWait.until(ExpectedConditions.visibilityOf(productName));
@@ -77,6 +80,9 @@ public class wishListPage extends basePage {
         return name;
     }
 
+    /** 
+     * @return String
+     */
     public String getProductPrice() {
         LoggerLoad.info("Fetching product price from wishlist");
         customWait.until(ExpectedConditions.visibilityOf(productPrice));
@@ -97,6 +103,9 @@ public class wishListPage extends basePage {
         }
     }
 
+    /** 
+     * @return String
+     */
     public String getEmptyWishlistMessage() {
         LoggerLoad.info("Fetching empty wishlist message");
         customWait.until(ExpectedConditions.visibilityOf(emptyWishlistMessage));

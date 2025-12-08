@@ -5,8 +5,8 @@ import org.testng.annotations.Test;
 import pageObjects.landingPage;
 import pageObjects.loginPage;
 import testBase.baseClass;
-import utilities.configurationReader;
-import utilities.LoggerLoad; // <-- import logger
+import utilities.LoggerLoad;
+import utilities.configurationReader; 
 
 public class loginTest extends baseClass {
 

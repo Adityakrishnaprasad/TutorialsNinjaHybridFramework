@@ -49,6 +49,9 @@ public class myAccountPage extends basePage {
         customWait.until(ExpectedConditions.elementToBeClickable(continueButton)).click();
     }
 
+    /** 
+     * @param pName
+     */
     public void SearchForProduct(String pName) {
         LoggerLoad.info("Searching for product: " + pName);
         customWait.until(ExpectedConditions.visibilityOf(searchField));
@@ -70,6 +73,9 @@ public class myAccountPage extends basePage {
         }
     }
     
+    /** 
+     * @return String
+     */
     public String getNameOfProduct() {
         LoggerLoad.info("Fetching product name");
         customWait.until(ExpectedConditions.visibilityOf(prod));

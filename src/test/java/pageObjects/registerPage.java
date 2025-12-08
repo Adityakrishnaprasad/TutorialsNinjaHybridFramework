@@ -25,6 +25,9 @@ public class registerPage extends basePage {
     @FindBy(xpath = "//input[@value='Continue']") private WebElement continueButton;
     @FindBy(xpath = "//h1[text()='Your Account Has Been Created!']") private WebElement confirmTxt;
 
+    /** 
+     * @param firstName
+     */
     public void enterFirstName(String firstName) {
     	System.out.println();
         LoggerLoad.info("Entering First Name: " + firstName);
@@ -32,30 +35,45 @@ public class registerPage extends basePage {
         firstnameField.sendKeys(firstName);
     }
 
+    /** 
+     * @param lastName
+     */
     public void enterLastName(String lastName) {
         LoggerLoad.info("Entering Last Name: " + lastName);
         lastnameField.clear();
         lastnameField.sendKeys(lastName);
     }
 
+    /** 
+     * @param email
+     */
     public void enterEmail(String email) {
         LoggerLoad.info("Entering Email: " + email);
         emailField.clear();
         emailField.sendKeys(email);
     }
 
+    /** 
+     * @param telephone
+     */
     public void enterTelephone(String telephone) {
         LoggerLoad.info("Entering Telephone: " + telephone);
         telephoneField.clear();
         telephoneField.sendKeys(telephone);
     }
 
+    /** 
+     * @param password
+     */
     public void enterPassword(String password) {
         LoggerLoad.info("Entering Password: [PROTECTED]");
         passwordField.clear();
         passwordField.sendKeys(password);
     }
 
+    /** 
+     * @param confirmPassword
+     */
     public void enterConfirmPassword(String confirmPassword) {
         LoggerLoad.info("Entering Confirm Password: [PROTECTED]");
         cnfpasswordField.clear();
