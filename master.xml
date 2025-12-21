@@ -13,7 +13,7 @@
         <parameter name="browser" value="firefox"/>
         <classes>
             <class name="testCases.registerAnAccount"/>
-            <class name="testCases.logOutTest"/>
+        <class name="testCases.logOutTest"/>
             <class name="testCases.loginTest"/>
             <class name="testCases.searchAndAddtoWishlistaProduct"/>
             <class name="testCases.addToWishlist"/>
