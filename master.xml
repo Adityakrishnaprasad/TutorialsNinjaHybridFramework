@@ -22,7 +22,7 @@
     </test> -->
 
     <!-- Chrome Tests -->
-   <!-- <test name="ChromeTest">
+    <test name="ChromeTest">
         <parameter name="browser" value="chrome"/>
         <classes>
             <class name="testCases.registerAnAccount"/>
@@ -32,10 +32,10 @@
             <class name="testCases.addToWishlist"/>
             <class name="testCases.removeFromWishlist"/>
         </classes>
-    </test> -->
+    </test> 
 
     <!-- Edge Tests -->
-     <test name="EdgeTest">
+    <!-- <test name="EdgeTest">
         <parameter name="browser" value="edge"/>
         <classes>
             <class name="testCases.registerAnAccount"/>
@@ -45,5 +45,5 @@
             <class name="testCases.addToWishlist"/>
             <class name="testCases.removeFromWishlist"/>
         </classes>
-    </test>
+    </test> -->
 </suite>

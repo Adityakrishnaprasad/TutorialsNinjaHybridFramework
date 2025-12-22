@@ -86,6 +86,8 @@ public class baseClass {
 					co.addArguments("--disable-gpu");
 					co.addArguments("--no-sandbox");
 					co.addArguments("--window-size=1920,1080");
+					co.addArguments("--remote-debugging-port=0");
+
 				}
 
 				co.addArguments("--remote-allow-origins=*");
@@ -108,6 +110,8 @@ public class baseClass {
 					eo.addArguments("--disable-gpu");
 					eo.addArguments("--no-sandbox");
 					eo.addArguments("--window-size=1920,1080");
+					eo.addArguments("--remote-debugging-port=0");
+
 				}
 
 				dcp.setCapability(EdgeOptions.CAPABILITY, eo);
@@ -160,6 +164,8 @@ public class baseClass {
 					co.addArguments("--disable-gpu");
 					co.addArguments("--no-sandbox");
 					co.addArguments("--window-size=1920,1080");
+					co.addArguments("--remote-debugging-port=0");
+
 				} else {
 					co.addArguments("--start-maximized");
 				}
@@ -194,6 +200,8 @@ public class baseClass {
 					eo.addArguments("--disable-gpu");
 					eo.addArguments("--no-sandbox");
 					eo.addArguments("--window-size=1920,1080");
+					eo.addArguments("--remote-debugging-port=0");
+
 				}
 
 				driver = new EdgeDriver(eo);
