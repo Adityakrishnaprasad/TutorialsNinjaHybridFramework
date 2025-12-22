@@ -2,9 +2,9 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('Build & Test') {
             steps {
-                echo 'Jenkinsfile is working'
+                bat 'mvn clean test'
             }
         }
     }
