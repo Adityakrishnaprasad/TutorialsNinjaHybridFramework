@@ -17,7 +17,7 @@
             <class name="testCases.loginTest"/>
             <class name="testCases.searchAndAddtoWishlistaProduct"/>
             <class name="testCases.addToWishlist"/>
-            <class name="testCases.removeFromWishlist"/>
+            <class name="testCases.removeFromWishlist"/>customWait
         </classes>
     </test> -->
 
