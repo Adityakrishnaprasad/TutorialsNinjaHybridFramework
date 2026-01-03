@@ -11,6 +11,7 @@ pipeline {
         app_password   = credentials('app_password')
         gridURL        = credentials('gridURL')
         execution_env  = credentials('execution_env')
+        notify_email   = credentials('notify_email')
     }
 
     stages {
@@ -24,7 +25,7 @@ pipeline {
     post {
         success {
             emailext(
-                to: 'adityakrishnaprasad6@gmail.com',
+                to: "${env.notify_email}",
                 subject: "SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
                 body: """
 Job: ${env.JOB_NAME}
@@ -36,7 +37,7 @@ Build URL: ${env.BUILD_URL}
         }
         failure {
             emailext(
-                to: 'adityakrishnaprasad6@gmail.com',
+                to: "${env.notify_email}",
                 subject: "FAILED: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
                 body: """
 Job: ${env.JOB_NAME}
