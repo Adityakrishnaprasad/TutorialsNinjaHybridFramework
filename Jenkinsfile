@@ -40,6 +40,9 @@ Job: ${env.JOB_NAME}
 Build Number: ${env.BUILD_NUMBER}
 Status: SUCCESS
 Build URL: ${env.BUILD_URL}
+
+Allure Report:
+${env.BUILD_URL}allure/
 """
         )
     }
@@ -53,10 +56,12 @@ Job: ${env.JOB_NAME}
 Build Number: ${env.BUILD_NUMBER}
 Status: FAILED
 Build URL: ${env.BUILD_URL}
+
+Allure Report:
+${env.BUILD_URL}allure/
 """
         )
     }
 }
-
 
 }
