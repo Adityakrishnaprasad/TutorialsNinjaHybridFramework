@@ -23,6 +23,14 @@ pipeline {
     }
 
    post {
+    always {
+        allure(
+            includeProperties: false,
+            jdk: '',
+            results: [[path: 'target/allure-results']]
+        )
+    }
+
     success {
         emailext(
             to: env.notify_email,
@@ -35,6 +43,7 @@ Build URL: ${env.BUILD_URL}
 """
         )
     }
+
     failure {
         emailext(
             to: env.notify_email,
@@ -48,5 +57,6 @@ Build URL: ${env.BUILD_URL}
         )
     }
 }
+
 
 }
