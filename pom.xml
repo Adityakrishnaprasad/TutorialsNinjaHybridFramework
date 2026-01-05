@@ -5,6 +5,7 @@
 	<groupId>testingpurpose</groupId>
 	<artifactId>TutorialsNinjaHybridFrameWork</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<!-- plugins for jenkins run -->
 	<build>
 		<pluginManagement>
 			<plugins>
