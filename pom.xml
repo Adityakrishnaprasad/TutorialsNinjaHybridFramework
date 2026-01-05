@@ -2,13 +2,16 @@
 	xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="https://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+
 	<groupId>testingpurpose</groupId>
 	<artifactId>TutorialsNinjaHybridFrameWork</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<!-- plugins for jenkins run -->
+
 	<build>
 		<pluginManagement>
 			<plugins>
+
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
@@ -19,21 +22,34 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
 					<version>3.5.3</version>
-					<configuration>
-						<suiteXmlFiles>
-							<suiteXmlFile>master.xml</suiteXmlFile>
-						</suiteXmlFiles>
-					</configuration>
+						<configuration>
+							<forkCount>1</forkCount>
+							<reuseForks>true</reuseForks>
+							<redirectTestOutputToFile>true</redirectTestOutputToFile>
+							<suiteXmlFiles>
+								<suiteXmlFile>master.xml</suiteXmlFile>
+							</suiteXmlFiles>
+                        </configuration>
+
 				</plugin>
+
 				<plugin>
 					<groupId>io.qameta.allure</groupId>
 					<artifactId>allure-maven</artifactId>
 					<version>2.11.2</version>
 				</plugin>
+
 			</plugins>
 		</pluginManagement>
-	</build>
 
+		<!-- REQUIRED ACTIVATION  -->
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
 
 	<dependencies>
 
@@ -60,13 +76,13 @@
 			<artifactId>poi-ooxml</artifactId>
 			<version>5.4.1</version>
 		</dependency>
-        
-        <dependency>
-		    <groupId>io.github.bonigarcia</groupId>
-		    <artifactId>webdrivermanager</artifactId>
-		    <version>6.3.2</version>
-        </dependency>
-        
+
+		<dependency>
+			<groupId>io.github.bonigarcia</groupId>
+			<artifactId>webdrivermanager</artifactId>
+			<version>6.3.2</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
