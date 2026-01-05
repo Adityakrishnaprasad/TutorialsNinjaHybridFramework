@@ -22,16 +22,15 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
 					<version>3.5.3</version>
-						<configuration>
-							<forkCount>1</forkCount>
-							<reuseForks>true</reuseForks>
-							<redirectTestOutputToFile>true</redirectTestOutputToFile>
-							<suiteXmlFiles>
-								<suiteXmlFile>master.xml</suiteXmlFile>
-							</suiteXmlFiles>
-                        </configuration>
-
-				</plugin>
+					<configuration>
+						<forkCount>0</forkCount>
+						<reuseForks>false</reuseForks>
+						<redirectTestOutputToFile>false</redirectTestOutputToFile>
+						<suiteXmlFiles>
+							<suiteXmlFile>master.xml</suiteXmlFile>
+						</suiteXmlFiles>
+					</configuration>
+                </plugin>
 
 				<plugin>
 					<groupId>io.qameta.allure</groupId>
