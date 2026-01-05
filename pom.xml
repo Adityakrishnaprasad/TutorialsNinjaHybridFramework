@@ -21,14 +21,15 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
 					<version>3.5.3</version>
-					<configuration>
-						<forkCount>0</forkCount>
-						<reuseForks>false</reuseForks>
-						<redirectTestOutputToFile>true</redirectTestOutputToFile>
-						<suiteXmlFiles>
-							<suiteXmlFile>master.xml</suiteXmlFile>
-						</suiteXmlFiles>
-					</configuration>
+						<configuration>
+							<forkCount>1</forkCount>
+							<reuseForks>true</reuseForks>
+							<redirectTestOutputToFile>false</redirectTestOutputToFile>
+							<suiteXmlFiles>
+								<suiteXmlFile>master.xml</suiteXmlFile>
+							</suiteXmlFiles>
+						</configuration>
+
 				</plugin>
 
 				<plugin>
@@ -40,7 +41,7 @@
 			</plugins>
 		</pluginManagement>
 
-		<!-- ✅ REQUIRED ACTIVATION (added, nothing removed) -->
+		<!-- REQUIRED ACTIVATION  -->
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
