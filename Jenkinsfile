@@ -22,30 +22,31 @@ pipeline {
         }
     }
 
-    post {
-        success {
-            emailext(
-                to: "${env.notify_email}",
-                subject: "SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                body: """
+   post {
+    success {
+        emailext(
+            to: env.notify_email,
+            subject: "SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+            body: """
 Job: ${env.JOB_NAME}
 Build Number: ${env.BUILD_NUMBER}
 Status: SUCCESS
 Build URL: ${env.BUILD_URL}
 """
-            )
-        }
-        failure {
-            emailext(
-                to: "${env.notify_email}",
-                subject: "FAILED: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                body: """
+        )
+    }
+    failure {
+        emailext(
+            to: env.notify_email,
+            subject: "FAILED: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+            body: """
 Job: ${env.JOB_NAME}
 Build Number: ${env.BUILD_NUMBER}
 Status: FAILED
 Build URL: ${env.BUILD_URL}
 """
-            )
-        }
+        )
     }
+}
+
 }
