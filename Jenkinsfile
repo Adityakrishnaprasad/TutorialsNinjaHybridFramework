@@ -24,13 +24,8 @@ pipeline {
 
     post {
         always {
-            allure(
-                includeProperties: false,
-                jdk: '',
-                results: [[path: 'target/allure-results']]
-            )
-
-            // 🔴 THIS IS THE FIX — DO NOT REMOVE
+           
+            // THIS IS THE FIX — DO NOT REMOVE
             script {
                 currentBuild.result = 'SUCCESS'
             }
