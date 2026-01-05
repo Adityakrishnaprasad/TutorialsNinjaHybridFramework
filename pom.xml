@@ -6,6 +6,7 @@
 	<groupId>testingpurpose</groupId>
 	<artifactId>TutorialsNinjaHybridFrameWork</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<!-- plugins for jenkins run -->
 
 	<build>
 		<pluginManagement>
@@ -24,11 +25,11 @@
 						<configuration>
 							<forkCount>1</forkCount>
 							<reuseForks>true</reuseForks>
-							<redirectTestOutputToFile>false</redirectTestOutputToFile>
+							<redirectTestOutputToFile>true</redirectTestOutputToFile>
 							<suiteXmlFiles>
 								<suiteXmlFile>master.xml</suiteXmlFile>
 							</suiteXmlFiles>
-						</configuration>
+                        </configuration>
 
 				</plugin>
 
