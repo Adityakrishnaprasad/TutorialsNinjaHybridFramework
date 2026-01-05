@@ -11,7 +11,8 @@ pipeline {
         app_password   = credentials('app_password')
         gridURL        = credentials('gridURL')
         execution_env  = credentials('execution_env')
-        notify_email   = credentials('notify_email')
+        notify_email   = 'adityakrishnaprasad6@gmail.com'
+
     }
 
     stages {
