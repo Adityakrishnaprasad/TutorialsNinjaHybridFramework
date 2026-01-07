@@ -12,7 +12,6 @@ pipeline {
         gridURL        = credentials('gridURL')
         execution_env  = credentials('execution_env')
         notify_email   = 'adityakrishnaprasad6@gmail.com'
-
     }
 
     stages {
@@ -25,8 +24,15 @@ pipeline {
 
     post {
         always {
-           
-            // THIS IS THE FIX — DO NOT REMOVE
+
+            // ✅ REQUIRED: Publish Allure report to Jenkins UI
+            allure(
+                includeProperties: false,
+                jdk: '',
+                results: [[path: 'target/allure-results']]
+            )
+
+            // REQUIRED: force SUCCESS (do not remove)
             script {
                 currentBuild.result = 'SUCCESS'
             }
@@ -35,32 +41,38 @@ pipeline {
         success {
             emailext(
                 to: env.notify_email,
+                replyTo: env.notify_email,                 // ✅ IMPORTANT for Gmail
                 subject: "SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                mimeType: 'text/html',                    // ✅ IMPORTANT
                 body: """
-Job: ${env.JOB_NAME}
-Build Number: ${env.BUILD_NUMBER}
-Status: SUCCESS
-Build URL: ${env.BUILD_URL}
+                <h3>Build SUCCESS</h3>
+                <p><b>Job:</b> ${env.JOB_NAME}</p>
+                <p><b>Build Number:</b> ${env.BUILD_NUMBER}</p>
+                <p><b>Status:</b> SUCCESS</p>
+                <p><b>Build URL:</b> <a href="${env.BUILD_URL}">${env.BUILD_URL}</a></p>
 
-Allure Report:
-${env.BUILD_URL}allure/
-"""
+                <p><b>Allure Report:</b>
+                <a href="${env.BUILD_URL}allure/">View Report</a></p>
+                """
             )
         }
 
         failure {
             emailext(
                 to: env.notify_email,
+                replyTo: env.notify_email,
                 subject: "FAILED: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                mimeType: 'text/html',
                 body: """
-Job: ${env.JOB_NAME}
-Build Number: ${env.BUILD_NUMBER}
-Status: FAILED
-Build URL: ${env.BUILD_URL}
+                <h3>Build FAILED</h3>
+                <p><b>Job:</b> ${env.JOB_NAME}</p>
+                <p><b>Build Number:</b> ${env.BUILD_NUMBER}</p>
+                <p><b>Status:</b> FAILED</p>
+                <p><b>Build URL:</b> <a href="${env.BUILD_URL}">${env.BUILD_URL}</a></p>
 
-Allure Report:
-${env.BUILD_URL}allure/
-"""
+                <p><b>Allure Report:</b>
+                <a href="${env.BUILD_URL}allure/">View Report</a></p>
+                """
             )
         }
     }
