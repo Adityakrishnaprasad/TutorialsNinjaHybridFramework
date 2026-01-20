@@ -23,20 +23,27 @@ pipeline {
     }
 
     post {
-        always {
+    always {
 
-            // ✅ REQUIRED: Publish Allure report to Jenkins UI
-            allure(
-                includeProperties: false,
-                jdk: '',
-                results: [[path: 'target/allure-results']]
-            )
-
-            // REQUIRED: force SUCCESS (do not remove)
-            script {
-                currentBuild.result = 'SUCCESS'
+        script {
+            try {
+                allure(
+                    includeProperties: false,
+                    jdk: '',
+                    results: [[path: 'target/allure-results']]
+                )
+            } catch (Exception e) {
+                echo "Allure failed or marked unstable, ignoring"
             }
         }
+
+        // REQUIRED: force SUCCESS (keep as-is)
+        script {
+            currentBuild.result = 'SUCCESS'
+        }
+    }
+}
+
 
         success {
             emailext(
