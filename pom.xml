@@ -27,7 +27,7 @@
 						<reuseForks>false</reuseForks>
 						<redirectTestOutputToFile>false</redirectTestOutputToFile>
 						<suiteXmlFiles>
-							<suiteXmlFile>master.xml</suiteXmlFile>
+							<suiteXmlFile>grid-parallel-suite.xml</suiteXmlFile>
 						</suiteXmlFiles>
 					</configuration>
                 </plugin>

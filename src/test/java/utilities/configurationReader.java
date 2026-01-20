@@ -1,30 +1,43 @@
 package utilities;
 
-import java.io.File;
-
 import io.github.cdimascio.dotenv.Dotenv;
 
 public class configurationReader {
-    private static Dotenv dotenv;
+   private static Dotenv dotenv;
 
+    static {
+        dotenv = Dotenv.configure()
+                .directory(System.getProperty("user.dir"))
+                .filename(".env")
+                .ignoreIfMalformed()
+                .ignoreIfMissing()
+                .load();
 
-	static {
-        File envFile = new File(".env");
-
-        if (envFile.exists()) {
-            dotenv = Dotenv.configure().directory(System.getProperty("user.dir")).filename(".env").load();
-            System.out.println(" Loaded environment variables from .env");
-        } else {
-            dotenv = Dotenv.configure().filename(".env.example").load();
-            System.out.println(" .env not found, using .env.example instead");
-        }
+        System.out.println("Loaded environment variables from .env");
     }
 
-	/** 
-     * @param key
-     * @return String
-     */
-    public static String get(String key) {
-		return dotenv.get(key);
-	}
+   public static String get(String key) {
+
+    // 1️⃣ Maven / JVM property (HIGHEST PRIORITY)
+    String value = System.getProperty(key);
+    if (value != null && !value.isBlank()) {
+        return value.trim();
+    }
+
+    // 2️⃣ OS environment variable
+    value = System.getenv(key);
+    if (value != null && !value.isBlank()) {
+        return value.trim();
+    }
+
+    // 3️⃣ .env file
+    value = dotenv.get(key);
+    if (value != null && !value.isBlank()) {
+        return value.trim();
+    }
+
+    return null;
+}
+
+
 }

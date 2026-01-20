@@ -6,7 +6,7 @@
         <listener class-name="io.qameta.allure.testng.AllureTestNg"/>
     </listeners>
 
-    <parameter name="execution_env" value="local"/>
+    
 
     <!-- Firefox Tests -->
   <!--  <test name="FirefoxTest">

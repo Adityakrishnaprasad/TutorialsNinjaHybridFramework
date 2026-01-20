@@ -30,95 +30,57 @@ import utilities.configurationReader;
 
 public class baseClass {
 
-	// ThreadLocal WebDriver
+	// ThreadLocal WebDriver (ONLY source of driver)
 	private static final ThreadLocal<WebDriver> tlDriver = new ThreadLocal<>();
 
-	// still expose driver, so no need to change test/page code
-	public static WebDriver driver;
-
-	/**
-	 * @param driver
-	 */
 	private static void setDriver(WebDriver driver) {
 		tlDriver.set(driver);
 	}
 
-	/**
-	 * @return WebDriver
-	 */
 	public static WebDriver getDriver() {
 		return tlDriver.get();
 	}
 
-	/**
-	 * @param browser
-	 * @throws MalformedURLException
-	 */
 	@Parameters({ "browser" })
 	@BeforeTest(alwaysRun = true)
 	public void setUp(String browser) throws MalformedURLException {
 
 		LoggerLoad.info("===== Test Execution Started =====");
 		LoggerLoad.info("Selected Browser: " + browser);
+		LoggerLoad.info("Thread ID: " + Thread.currentThread().getId());
 
-		// allow environment override via System env var if provided
-		// Grid environment
-		if (configurationReader.get("execution_env").equalsIgnoreCase("remote")) {
+		String executionEnv = configurationReader.get("execution_env");
+		LoggerLoad.info("DEBUG execution_env raw value = [" + executionEnv + "]");
+
+		if (executionEnv == null) {
+			executionEnv = "local";
+		}
+		executionEnv = executionEnv.trim().toLowerCase();
+
+		// ================= GRID ENVIRONMENT =================
+		if (executionEnv.equals("remote")) {
+
 			LoggerLoad.info("Running scripts in grid environment");
 
-			// check if SELENIUM_HUB_URL is provided from Docker
 			String hubURL = System.getenv("SELENIUM_HUB_URL");
 			if (hubURL == null || hubURL.isEmpty()) {
-				hubURL = configurationReader.get("gridURL"); // fallback to config file
+				hubURL = configurationReader.get("gridURL");
 			}
 
 			LoggerLoad.info("Using Hub URL: " + hubURL);
 			DesiredCapabilities dcp = new DesiredCapabilities();
 
 			switch (browser.toLowerCase()) {
+
 			case "chrome": {
 				ChromeOptions co = new ChromeOptions();
-				co.setExperimentalOption("excludeSwitches", new String[] { "enable-automation" });
 				co.setPageLoadStrategy(PageLoadStrategy.EAGER);
-
-				if (System.getenv("JENKINS_HOME") != null) {
-					co.addArguments("--headless=new");
-					co.addArguments("--disable-gpu");
-					co.addArguments("--no-sandbox");
-					co.addArguments("--window-size=1920,1080");
-					co.addArguments("--remote-debugging-port=0");
-
-				}
-
 				co.addArguments("--remote-allow-origins=*");
 
 				dcp.setCapability(ChromeOptions.CAPABILITY, co);
 				dcp.setBrowserName("chrome");
 
-				driver = new RemoteWebDriver(new URL(hubURL), dcp);
-				setDriver(driver);
-				break;
-			}
-
-			case "edge": {
-				EdgeOptions eo = new EdgeOptions();
-				eo.setExperimentalOption("excludeSwitches", new String[] { "enable-automation" });
-				eo.setPageLoadStrategy(PageLoadStrategy.EAGER);
-
-				if (System.getenv("JENKINS_HOME") != null) {
-					eo.addArguments("--headless=new");
-					eo.addArguments("--disable-gpu");
-					eo.addArguments("--no-sandbox");
-					eo.addArguments("--window-size=1920,1080");
-					eo.addArguments("--remote-debugging-port=0");
-
-				}
-
-				dcp.setCapability(EdgeOptions.CAPABILITY, eo);
-				dcp.setBrowserName("MicrosoftEdge");
-
-				driver = new RemoteWebDriver(new URL(hubURL), dcp);
-				setDriver(driver);
+				setDriver(new RemoteWebDriver(new URL(hubURL), dcp));
 				break;
 			}
 
@@ -126,112 +88,70 @@ public class baseClass {
 				FirefoxOptions fo = new FirefoxOptions();
 				fo.setPageLoadStrategy(PageLoadStrategy.EAGER);
 
-				if (System.getenv("JENKINS_HOME") != null) {
-					fo.addArguments("-headless");
-				}
-
 				dcp.setCapability(FirefoxOptions.FIREFOX_OPTIONS, fo);
 				dcp.setBrowserName("firefox");
 
-				driver = new RemoteWebDriver(new URL(hubURL), dcp);
-				setDriver(driver);
+				setDriver(new RemoteWebDriver(new URL(hubURL), dcp));
+				break;
+			}
+
+			case "edge": {
+				EdgeOptions eo = new EdgeOptions();
+				eo.setPageLoadStrategy(PageLoadStrategy.EAGER);
+
+				dcp.setCapability(EdgeOptions.CAPABILITY, eo);
+				dcp.setBrowserName("MicrosoftEdge");
+
+				setDriver(new RemoteWebDriver(new URL(hubURL), dcp));
 				break;
 			}
 
 			default:
 				throw new IllegalArgumentException("Choose a valid browser");
 			}
-
-			if (System.getenv("JENKINS_HOME") == null) {
-			    driver.manage().window().maximize();
-			}
-
 		}
 
-		// Local environment
-		else if (configurationReader.get("execution_env").equalsIgnoreCase("local")) {
+		// ================= LOCAL ENVIRONMENT =================
+		else {
+
 			LoggerLoad.info("Running scripts locally");
 
 			switch (browser.toLowerCase()) {
+
 			case "chrome":
 				WebDriverManager.chromedriver().setup();
-				ChromeOptions co = new ChromeOptions();
-				co.setExperimentalOption("excludeSwitches", new String[] { "enable-automation" });
-				co.setPageLoadStrategy(PageLoadStrategy.EAGER);
-
-				if (System.getenv("JENKINS_HOME") != null) {
-					co.addArguments("--headless=new");
-					co.addArguments("--disable-gpu");
-					co.addArguments("--no-sandbox");
-					co.addArguments("--window-size=1920,1080");
-					co.addArguments("--remote-debugging-port=0");
-
-				} else {
-					co.addArguments("--start-maximized");
-				}
-
-				co.addArguments("--remote-allow-origins=*");
-
-				driver = new ChromeDriver(co);
-				setDriver(driver);
+				setDriver(new ChromeDriver());
 				break;
 
 			case "firefox":
 				WebDriverManager.firefoxdriver().setup();
-				FirefoxOptions fo = new FirefoxOptions();
-				fo.setPageLoadStrategy(PageLoadStrategy.EAGER);
-
-				if (System.getenv("JENKINS_HOME") != null) {
-					fo.addArguments("-headless");
-				}
-
-				driver = new FirefoxDriver(fo);
-				setDriver(driver);
+				setDriver(new FirefoxDriver());
 				break;
 
 			case "edge":
 				WebDriverManager.edgedriver().setup();
-				EdgeOptions eo = new EdgeOptions();
-				eo.setExperimentalOption("excludeSwitches", new String[] { "enable-automation" });
-				eo.setPageLoadStrategy(PageLoadStrategy.EAGER);
-
-				if (System.getenv("JENKINS_HOME") != null) {
-					eo.addArguments("--headless=new");
-					eo.addArguments("--disable-gpu");
-					eo.addArguments("--no-sandbox");
-					eo.addArguments("--window-size=1920,1080");
-					eo.addArguments("--remote-debugging-port=0");
-
-				}
-
-				driver = new EdgeDriver(eo);
-				setDriver(driver);
+				setDriver(new EdgeDriver());
 				break;
 
 			default:
-				LoggerLoad.error("Unsupported browser provided: " + browser);
 				throw new IllegalArgumentException("Browser not supported: " + browser);
 			}
 		}
 
-		// Common setup
+		// ================= COMMON SETUP =================
 		getDriver().manage().deleteAllCookies();
 		getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
 		getDriver().manage().timeouts().pageLoadTimeout(Duration.ofSeconds(40));
+		getDriver().manage().window().maximize();
 
 		String url = configurationReader.get("baseURL");
 		LoggerLoad.info("Navigating to: " + url);
-		driver.get(url);
+		getDriver().get(url);
 
-		LoggerLoad.info("Writing Allure environment details...");
-		AllureEnvironmentWriter.writeEnv(driver);
-
+		AllureEnvironmentWriter.writeEnv(getDriver());
 		LoggerLoad.info("Browser setup completed successfully.");
 	}
 
-	/**
-	 * @param result
-	 */
 	@AfterMethod(alwaysRun = true)
 	public void attachLogsToAllure(ITestResult result) {
 		try {
@@ -247,14 +167,12 @@ public class baseClass {
 	}
 
 	@AfterTest(alwaysRun = true)
-	public void TearDown() {
+	public void tearDown() {
 
 		if (getDriver() != null) {
-			LoggerLoad.info("Closing the browser and quitting WebDriver...");
+			LoggerLoad.info("Closing browser for Thread ID: " + Thread.currentThread().getId());
 			try {
 				getDriver().quit();
-			} catch (Exception e) {
-				LoggerLoad.error("Error while quitting driver: " + e.getMessage());
 			} finally {
 				tlDriver.remove();
 			}
