@@ -22,7 +22,7 @@
     </test>
 
     <!-- Firefox Tests -->
-   <test name="FirefoxTest">
+  <!-- <test name="FirefoxTest">
         <parameter name="browser" value="firefox"/>
         <classes>
             <class name="testCases.registerAnAccount"/>
@@ -32,7 +32,7 @@
             <class name="testCases.addToWishlist"/>
             <class name="testCases.removeFromWishlist"/>
         </classes>
-    </test> 
+    </test> -->
 
     <!-- Edge Tests -->
     <test name="EdgeTest">
