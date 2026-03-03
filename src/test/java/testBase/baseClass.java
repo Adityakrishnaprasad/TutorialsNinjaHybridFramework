@@ -63,93 +63,97 @@ public class baseClass {
 
 		// allow environment override via System env var if provided
 		// Grid environment
-		if (configurationReader.get("execution_env").equalsIgnoreCase("remote")) {
-			LoggerLoad.info("Running scripts in grid environment");
+		// allow override from command line (Jenkins) first
+		String executionEnv = System.getProperty("execution_env");
 
-			// check if SELENIUM_HUB_URL is provided from Docker
-			String hubURL = System.getenv("SELENIUM_HUB_URL");
-			if (hubURL == null || hubURL.isEmpty()) {
-				hubURL = configurationReader.get("gridURL"); // fallback to config file
-			}
-
-			LoggerLoad.info("Using Hub URL: " + hubURL);
-			DesiredCapabilities dcp = new DesiredCapabilities();
-
-			switch (browser.toLowerCase()) {
-			case "chrome": {
-				ChromeOptions co = new ChromeOptions();
-				co.setExperimentalOption("excludeSwitches", new String[] { "enable-automation" });
-				co.setPageLoadStrategy(PageLoadStrategy.EAGER);
-
-				if (System.getenv("JENKINS_HOME") != null) {
-					co.addArguments("--headless=new");
-					co.addArguments("--disable-gpu");
-					co.addArguments("--no-sandbox");
-					co.addArguments("--window-size=1920,1080");
-					co.addArguments("--remote-debugging-port=0");
-
-				}
-
-				co.addArguments("--remote-allow-origins=*");
-
-				dcp.setCapability(ChromeOptions.CAPABILITY, co);
-				dcp.setBrowserName("chrome");
-
-				driver = new RemoteWebDriver(new URL(hubURL), dcp);
-				setDriver(driver);
-				break;
-			}
-
-			case "edge": {
-				EdgeOptions eo = new EdgeOptions();
-				eo.setExperimentalOption("excludeSwitches", new String[] { "enable-automation" });
-				eo.setPageLoadStrategy(PageLoadStrategy.EAGER);
-
-				if (System.getenv("JENKINS_HOME") != null) {
-					eo.addArguments("--headless=new");
-					eo.addArguments("--disable-gpu");
-					eo.addArguments("--no-sandbox");
-					eo.addArguments("--window-size=1920,1080");
-					eo.addArguments("--remote-debugging-port=0");
-
-				}
-
-				dcp.setCapability(EdgeOptions.CAPABILITY, eo);
-				dcp.setBrowserName("MicrosoftEdge");
-
-				driver = new RemoteWebDriver(new URL(hubURL), dcp);
-				setDriver(driver);
-				break;
-			}
-
-			case "firefox": {
-				FirefoxOptions fo = new FirefoxOptions();
-				fo.setPageLoadStrategy(PageLoadStrategy.EAGER);
-
-				if (System.getenv("JENKINS_HOME") != null) {
-					fo.addArguments("-headless");
-				}
-
-				dcp.setCapability(FirefoxOptions.FIREFOX_OPTIONS, fo);
-				dcp.setBrowserName("firefox");
-
-				driver = new RemoteWebDriver(new URL(hubURL), dcp);
-				setDriver(driver);
-				break;
-			}
-
-			default:
-				throw new IllegalArgumentException("Choose a valid browser");
-			}
-
-			if (System.getenv("JENKINS_HOME") == null) {
-			    driver.manage().window().maximize();
-			}
-
+		if (executionEnv == null || executionEnv.isEmpty()) {
+		    executionEnv = configurationReader.get("execution_env");
 		}
 
+		if (executionEnv.equalsIgnoreCase("remote")) {
+		    LoggerLoad.info("Running scripts in grid environment");
+
+		    // check if SELENIUM_HUB_URL is provided from Docker
+		    String hubURL = System.getenv("SELENIUM_HUB_URL");
+		    if (hubURL == null || hubURL.isEmpty()) {
+		        hubURL = configurationReader.get("gridURL"); // fallback to config file
+		    }
+
+		    LoggerLoad.info("Using Hub URL: " + hubURL);
+		    DesiredCapabilities dcp = new DesiredCapabilities();
+
+		    switch (browser.toLowerCase()) {
+		        case "chrome": {
+		            ChromeOptions co = new ChromeOptions();
+		            co.setExperimentalOption("excludeSwitches", new String[] { "enable-automation" });
+		            co.setPageLoadStrategy(PageLoadStrategy.EAGER);
+
+		            if (System.getenv("JENKINS_HOME") != null) {
+		                co.addArguments("--headless=new");
+		                co.addArguments("--disable-gpu");
+		                co.addArguments("--no-sandbox");
+		                co.addArguments("--window-size=1920,1080");
+		                co.addArguments("--remote-debugging-port=0");
+		            }
+
+		            co.addArguments("--remote-allow-origins=*");
+
+		            dcp.setCapability(ChromeOptions.CAPABILITY, co);
+		            dcp.setBrowserName("chrome");
+
+		            driver = new RemoteWebDriver(new URL(hubURL), dcp);
+		            setDriver(driver);
+		            break;
+		        }
+
+		        case "edge": {
+		            EdgeOptions eo = new EdgeOptions();
+		            eo.setExperimentalOption("excludeSwitches", new String[] { "enable-automation" });
+		            eo.setPageLoadStrategy(PageLoadStrategy.EAGER);
+
+		            if (System.getenv("JENKINS_HOME") != null) {
+		                eo.addArguments("--headless=new");
+		                eo.addArguments("--disable-gpu");
+		                eo.addArguments("--no-sandbox");
+		                eo.addArguments("--window-size=1920,1080");
+		                eo.addArguments("--remote-debugging-port=0");
+		            }
+
+		            dcp.setCapability(EdgeOptions.CAPABILITY, eo);
+		            dcp.setBrowserName("MicrosoftEdge");
+
+		            driver = new RemoteWebDriver(new URL(hubURL), dcp);
+		            setDriver(driver);
+		            break;
+		        }
+
+		        case "firefox": {
+		            FirefoxOptions fo = new FirefoxOptions();
+		            fo.setPageLoadStrategy(PageLoadStrategy.EAGER);
+
+		            if (System.getenv("JENKINS_HOME") != null) {
+		                fo.addArguments("-headless");
+		            }
+
+		            dcp.setCapability(FirefoxOptions.FIREFOX_OPTIONS, fo);
+		            dcp.setBrowserName("firefox");
+
+		            driver = new RemoteWebDriver(new URL(hubURL), dcp);
+		            setDriver(driver);
+		            break;
+		        }
+
+		        default:
+		            throw new IllegalArgumentException("Choose a valid browser");
+		    }
+
+		    if (System.getenv("JENKINS_HOME") == null) {
+		        driver.manage().window().maximize();
+		    }
+		}
+		
 		// Local environment
-		else if (configurationReader.get("execution_env").equalsIgnoreCase("local")) {
+		else if (executionEnv.equalsIgnoreCase("local")) {
 			LoggerLoad.info("Running scripts locally");
 
 			switch (browser.toLowerCase()) {
