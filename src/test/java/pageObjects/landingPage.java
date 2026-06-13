@@ -5,33 +5,45 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class landingPage extends basePage{
+import utilities.LoggerLoad; 
+
+public class landingPage extends basePage {
 
     public landingPage(WebDriver driver) {
         super(driver);
     }
 
-  
-    @FindBy(xpath="//a[@title='My Account']") private WebElement userdd;
-    @FindBy(xpath="//a[normalize-space()='Register']") private WebElement regLink;
-    @FindBy(xpath="//a[normalize-space()='Login']") private WebElement login;
-    
+    @FindBy(xpath = "//a[@title='My Account']")
+    private WebElement userdd;
 
-    
-    public void clickOnUserdd() {
-        ww.until(ExpectedConditions.elementToBeClickable(userdd));
-        userdd.click();
-    }
+    @FindBy(xpath = "//a[normalize-space()='Register']")
+    private WebElement regLink;
 
+    @FindBy(xpath = "//a[normalize-space()='Login']")
+    private WebElement login;
+
+    // clicks on user dropdown and clicks on register user link
     public void clickOnuserReg() {
-        ww.until(ExpectedConditions.elementToBeClickable(regLink));
-        regLink.click();
+    	System.out.println();
+        LoggerLoad.info("Clicking on 'My Account' dropdown");
+        customWait.until(ExpectedConditions.elementToBeClickable(userdd)).click();
+
+        LoggerLoad.info("Clicking on 'Register' link");
+        customWait.until(ExpectedConditions.elementToBeClickable(regLink)).click();
     }
 
+    // clicks on user dropdown and clicks on login link
     public void clickOnLogin() {
-        ww.until(ExpectedConditions.elementToBeClickable(login));
-        login.click();
+        LoggerLoad.info("Clicking on 'My Account' dropdown");
+        customWait.until(ExpectedConditions.elementToBeClickable(userdd)).click();
+
+        LoggerLoad.info("Clicking on 'Login' link");
+        customWait.until(ExpectedConditions.elementToBeClickable(login)).click();
+        System.out.println();
     }
+    
+    public void clickonMyAccount() {
+		LoggerLoad.info("Clicking on 'My Account' dropdown");
+		customWait.until(ExpectedConditions.elementToBeClickable(userdd)).click();
+	}
 }
-
-
