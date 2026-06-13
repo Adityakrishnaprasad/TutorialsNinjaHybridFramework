@@ -13,25 +13,26 @@
         <parameter name="browser" value="firefox"/>
         <classes>
             <class name="testCases.registerAnAccount"/>
-        <class name="testCases.logOutTest"/>
+            <class name="testCases.EditAccountDetails"/>
+             <class name="testCases.logOutTest"/>
             <class name="testCases.loginTest"/>
             <class name="testCases.searchAndAddtoWishlistaProduct"/>
             <class name="testCases.addToWishlist"/>
-            <class name="testCases.removeFromWishlist"/>customWait
-        </classes>
-    </test> -->
-
+            <class name="testCases.removeFromWishlist"/>
+        </classes> 
+    </test>-->
     <!-- Chrome Tests -->
     <test name="ChromeTest">
         <parameter name="browser" value="chrome"/>
         <classes>
             <class name="testCases.registerAnAccount"/>
+             <class name="testCases.EditAccountDetails"/>
             <class name="testCases.logOutTest"/>
             <class name="testCases.loginTest"/>
             <class name="testCases.searchAndAddtoWishlistaProduct"/>
             <class name="testCases.addToWishlist"/>
             <class name="testCases.removeFromWishlist"/>
-        </classes>
+        </classes> 
     </test> 
 
     <!-- Edge Tests -->
@@ -39,6 +40,7 @@
         <parameter name="browser" value="edge"/>
         <classes>
             <class name="testCases.registerAnAccount"/>
+            <class name="testCases.EditAccountDetails"/>
             <class name="testCases.logOutTest"/>
             <class name="testCases.loginTest"/>
             <class name="testCases.searchAndAddtoWishlistaProduct"/>

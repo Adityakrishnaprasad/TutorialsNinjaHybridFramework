@@ -41,4 +41,9 @@ public class landingPage extends basePage {
         customWait.until(ExpectedConditions.elementToBeClickable(login)).click();
         System.out.println();
     }
+    
+    public void clickonMyAccount() {
+		LoggerLoad.info("Clicking on 'My Account' dropdown");
+		customWait.until(ExpectedConditions.elementToBeClickable(userdd)).click();
+	}
 }
