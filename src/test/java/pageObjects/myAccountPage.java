@@ -6,42 +6,59 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import utilities.LoggerLoad; 
+import utilities.LoggerLoad;
 
 public class myAccountPage extends basePage {
 
     public myAccountPage(WebDriver driver) {
         super(driver);
     }
-    
-    @FindBy(xpath="//a[@title='My Account']") 
+
+    @FindBy(xpath="//a[@title='My Account']")
     private WebElement myAccountDropdown;
 
-    @FindBy(xpath="//a[text()='Logout']") 
+    @FindBy(xpath="//ul[contains(@class,'dropdown-menu')]//li/a[text()='My Account']")
+    private WebElement myAccountLink;
+
+    @FindBy(xpath="//a[text()='Edit your account information']")
+    private WebElement editAccountLink;
+
+    @FindBy(xpath="//a[text()='Logout']")
     private WebElement logoutLink;
 
-    @FindBy(xpath="//a[text()='Continue']") 
+    @FindBy(xpath="//a[text()='Continue']")
     private WebElement continueButton;
 
-    @FindBy(name="search") 
+    @FindBy(name="search")
     private WebElement searchField;
 
     // Direct product link
-    @FindBy(xpath="//h4/a[text()='Samsung Galaxy Tab 10.1']") 
+    @FindBy(xpath="//h4/a[text()='Samsung Galaxy Tab 10.1']")
     private WebElement prod;
 
-    @FindBy(xpath="//i[@class='fa fa-search']") 
+    @FindBy(xpath="//i[@class='fa fa-search']")
     private WebElement searchBtn;
 
     public void clickOnMyAccountDropdown() {
     	System.out.println();
         LoggerLoad.info("Clicking on 'My Account' dropdown");
-        customWait.until(ExpectedConditions.elementToBeClickable(myAccountDropdown)).click();  
+        customWait.until(ExpectedConditions.elementToBeClickable(myAccountDropdown)).click();
+    }
+
+    public void navigateToMyAccount() {
+        LoggerLoad.info("Navigating to My Account dashboard");
+        customWait.until(ExpectedConditions.elementToBeClickable(myAccountDropdown)).click();
+        customWait.until(ExpectedConditions.elementToBeClickable(myAccountLink)).click();
+    }
+
+    public void clickOnEditAccount() {
+        LoggerLoad.info("Clicking on 'Edit your account information'");
+        customWait.until(ExpectedConditions.elementToBeClickable(editAccountLink)).click();
     }
 
     public void clickOnLogout() {
         LoggerLoad.info("Clicking on 'Logout' link");
-        customWait.until(ExpectedConditions.elementToBeClickable(logoutLink)).click();  
+        customWait.until(ExpectedConditions.elementToBeClickable(logoutLink)).click();
     }
 
     public void clickOnContinue() {
@@ -49,13 +66,13 @@ public class myAccountPage extends basePage {
         customWait.until(ExpectedConditions.elementToBeClickable(continueButton)).click();
     }
 
-    /** 
+    /**
      * @param pName
      */
     public void SearchForProduct(String pName) {
         LoggerLoad.info("Searching for product: " + pName);
         customWait.until(ExpectedConditions.visibilityOf(searchField));
-        searchField.clear();   
+        searchField.clear();
         searchField.sendKeys(pName);
         customWait.until(ExpectedConditions.elementToBeClickable(searchBtn)).click();
     }
@@ -72,8 +89,8 @@ public class myAccountPage extends basePage {
             );
         }
     }
-    
-    /** 
+
+    /**
      * @return String
      */
     public String getNameOfProduct() {
@@ -83,6 +100,6 @@ public class myAccountPage extends basePage {
         LoggerLoad.info("Product name found: " + productName);
         System.out.println();
         return productName;
-        
+
     }
 }
