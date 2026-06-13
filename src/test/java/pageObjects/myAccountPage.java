@@ -6,52 +6,100 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class myAccountPage extends basePage{
+import utilities.LoggerLoad;
 
-	public myAccountPage(WebDriver driver) {
-		super(driver);
-	}
-	
-	@FindBy(xpath="//span[text()='My Account']") private WebElement myAccountDropdown;
-    @FindBy(xpath="//a[text()='Logout']") private WebElement logoutLink;
-    @FindBy(xpath="//a[text()='Continue']") private WebElement continueButton;
-    @FindBy(name="search") private WebElement searchField;
-    @FindBy(xpath="//a[text()='Samsung Galaxy Tab 10.1']") private WebElement prod;
-    @FindBy(xpath="//i[@class='fa fa-search']") private WebElement searchBtn;
+public class myAccountPage extends basePage {
+
+    public myAccountPage(WebDriver driver) {
+        super(driver);
+    }
+
+    @FindBy(xpath="//a[@title='My Account']")
+    private WebElement myAccountDropdown;
+
+    @FindBy(xpath="//ul[contains(@class,'dropdown-menu')]//li/a[text()='My Account']")
+    private WebElement myAccountLink;
+
+    @FindBy(xpath="//a[text()='Edit your account information']")
+    private WebElement editAccountLink;
+
+    @FindBy(xpath="//a[text()='Logout']")
+    private WebElement logoutLink;
+
+    @FindBy(xpath="//a[text()='Continue']")
+    private WebElement continueButton;
+
+    @FindBy(name="search")
+    private WebElement searchField;
+
+    // Direct product link
+    @FindBy(xpath="//h4/a[text()='Samsung Galaxy Tab 10.1']")
+    private WebElement prod;
+
+    @FindBy(xpath="//i[@class='fa fa-search']")
+    private WebElement searchBtn;
 
     public void clickOnMyAccountDropdown() {
-        ww.until(ExpectedConditions.elementToBeClickable(myAccountDropdown));
-        myAccountDropdown.click();
+    	System.out.println();
+        LoggerLoad.info("Clicking on 'My Account' dropdown");
+        customWait.until(ExpectedConditions.elementToBeClickable(myAccountDropdown)).click();
+    }
+
+    public void navigateToMyAccount() {
+        LoggerLoad.info("Navigating to My Account dashboard");
+        customWait.until(ExpectedConditions.elementToBeClickable(myAccountDropdown)).click();
+        customWait.until(ExpectedConditions.elementToBeClickable(myAccountLink)).click();
+    }
+
+    public void clickOnEditAccount() {
+        LoggerLoad.info("Clicking on 'Edit your account information'");
+        customWait.until(ExpectedConditions.elementToBeClickable(editAccountLink)).click();
     }
 
     public void clickOnLogout() {
-        ww.until(ExpectedConditions.elementToBeClickable(logoutLink));
-        logoutLink.click();
+        LoggerLoad.info("Clicking on 'Logout' link");
+        customWait.until(ExpectedConditions.elementToBeClickable(logoutLink)).click();
     }
 
     public void clickOnContinue() {
-        ww.until(ExpectedConditions.elementToBeClickable(continueButton));
-        continueButton.click();
+        LoggerLoad.info("Clicking on 'Continue' button after logout");
+        customWait.until(ExpectedConditions.elementToBeClickable(continueButton)).click();
     }
 
+    /**
+     * @param pName
+     */
     public void SearchForProduct(String pName) {
-        // Highlight: Wait for search field visibility
-        ww.until(ExpectedConditions.visibilityOf(searchField));
+        LoggerLoad.info("Searching for product: " + pName);
+        customWait.until(ExpectedConditions.visibilityOf(searchField));
+        searchField.clear();
         searchField.sendKeys(pName);
-        searchBtn.click();
+        customWait.until(ExpectedConditions.elementToBeClickable(searchBtn)).click();
     }
 
     public void clickOnProduct() {
+        LoggerLoad.info("Clicking on product: Samsung Galaxy Tab 10.1");
         try {
-            ww.until(ExpectedConditions.elementToBeClickable(prod)).click();
+            customWait.until(ExpectedConditions.visibilityOf(prod));
+            customWait.until(ExpectedConditions.elementToBeClickable(prod)).click();
         } catch (Exception e) {
+            LoggerLoad.warn("Standard click failed, trying JavaScript click on product");
             ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].scrollIntoView({block: 'center'}); arguments[0].click();", prod
             );
         }
     }
-	
+
+    /**
+     * @return String
+     */
     public String getNameOfProduct() {
-        return prod.getText();
+        LoggerLoad.info("Fetching product name");
+        customWait.until(ExpectedConditions.visibilityOf(prod));
+        String productName = prod.getText();
+        LoggerLoad.info("Product name found: " + productName);
+        System.out.println();
+        return productName;
+
     }
 }

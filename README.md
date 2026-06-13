@@ -9,6 +9,8 @@ This is a simple Hybrid Automation Framework for the TutorialsNinja e-commerce w
         Product Search
         
         Add to Wishlist
+        
+        Remove from Wishlist
 
 
 🔧 Technologies Used
@@ -23,3 +25,5 @@ This is a simple Hybrid Automation Framework for the TutorialsNinja e-commerce w
       
       Allure Reports
 
+
+Note:- I have added the user Guide Document which gives details about my current Hybrid automation framework

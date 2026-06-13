@@ -29,7 +29,6 @@ public class Listeners implements ITestListener, IExecutionListener {
             generateReport.inheritIO();
             Process p1 = generateReport.start();
             p1.waitFor();
-            System.out.println("Allure report successfully generated.");
 
             // Step 2: Serve locally only (not on Jenkins)
             if (System.getenv("JENKINS_HOME") == null) {
