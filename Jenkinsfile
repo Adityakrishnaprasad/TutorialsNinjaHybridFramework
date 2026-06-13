@@ -17,7 +17,7 @@ pipeline {
     stages {
         stage('Build & Test') {
             steps {
-                bat 'mvn clean test'
+                bat 'mvn clean test -Dsurefire.suiteXmlFiles=master.xml'
             }
         }
     }
