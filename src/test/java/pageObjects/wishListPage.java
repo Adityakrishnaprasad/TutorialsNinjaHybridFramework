@@ -33,7 +33,7 @@ public class wishListPage extends basePage {
     @FindBy(xpath="//button/i[@class='fa fa-times']") 
     private WebElement closeicon;
 
-    @FindBy(xpath="//i[@class='fa fa-times']") 
+    @FindBy(xpath="//div[@id='content']//a[contains(@href,'remove=')]") 
     private WebElement removeIcon;
 
     @FindBy(xpath="//p[text()='Your wish list is empty.']") 
