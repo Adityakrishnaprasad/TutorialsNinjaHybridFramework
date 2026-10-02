@@ -6,4 +6,5 @@ COPY . .
 
 RUN mvn clean install -DskipTests
 
-CMD ["mvn", "test","grid-parallel-suite.xml]
+# Needs a running Selenium Grid. Pass its address with -e SELENIUM_HUB_URL=http://<grid-host>:4444
+CMD ["mvn", "test", "-Dsurefire.suiteXmlFiles=grid-parallel-suite.xml", "-Dexecution_env=remote"]

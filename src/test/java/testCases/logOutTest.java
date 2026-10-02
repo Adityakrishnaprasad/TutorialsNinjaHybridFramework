@@ -8,7 +8,7 @@ import utilities.LoggerLoad;
 
 public class logOutTest extends baseClass {
     
-    @Test
+    @Test(groups = "logout", dependsOnGroups = "editAccount")
     public void logOutTestapp() {
         LoggerLoad.info("===== Starting test: logOutTestapp =====");
 

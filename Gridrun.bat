@@ -11,7 +11,7 @@ timeout /t 5
 echo =====================================
 echo Running TestNG Suite...
 echo =====================================
-mvn clean test -Dsurefire.suiteXmlFiles=grid-parallel-suite.xml
+mvn clean test -Dsurefire.suiteXmlFiles=grid-parallel-suite.xml -Dexecution_env=remote
 echo =====================================
 echo Stopping Selenium Grid...
 echo =====================================

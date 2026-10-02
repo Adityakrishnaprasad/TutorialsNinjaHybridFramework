@@ -18,7 +18,7 @@ public class EditAccountDetails extends baseClass {
 	landingPage lp;
 	registerPage reg;
 
-	@Test
+	@Test(groups = "editAccount", dependsOnGroups = "register")
 	public void editAccountDetails() {
 
 		LoggerLoad.info("===== Starting test: editAccountDetails =====");

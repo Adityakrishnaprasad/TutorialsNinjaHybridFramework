@@ -10,7 +10,7 @@ public class removeFromWishlist extends baseClass {
 
     wishListPage wlp;
 
-    @Test
+    @Test(dependsOnGroups = "addToCart")
     public void RemoveFromWishList() {
         LoggerLoad.info("===== Starting test: RemoveFromWishList =====");
 

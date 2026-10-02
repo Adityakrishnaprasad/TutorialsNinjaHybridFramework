@@ -12,7 +12,7 @@ public class searchAndAddtoWishlistaProduct extends baseClass {
     myAccountPage map;
     productListingPage plp;
 
-    @Test
+    @Test(groups = "searchWishlist", dependsOnGroups = "login")
     public void searchandaddtowishlist() throws InterruptedException {
         LoggerLoad.info("===== Starting test: searchandaddtowishlist =====");
 
