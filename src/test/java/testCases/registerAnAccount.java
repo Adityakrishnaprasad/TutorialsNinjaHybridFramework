@@ -13,7 +13,7 @@ public class registerAnAccount extends baseClass {
     landingPage lp;
     registerPage rp;
 
-    @Test
+    @Test(groups = "register")
     public void CreateUser() {
         LoggerLoad.info("===== Starting test: CreateUser =====");
 

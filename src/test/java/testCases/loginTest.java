@@ -15,7 +15,7 @@ public class loginTest extends baseClass {
     String user = configurationReader.get("app_username");
     String pass = configurationReader.get("app_password");
 
-    @Test
+    @Test(groups = "login", dependsOnGroups = "logout")
     public void loginTestApp() {
         LoggerLoad.info("===== Starting test: loginTestApp =====");
         LoggerLoad.info("Step 1: Navigate to Login page");

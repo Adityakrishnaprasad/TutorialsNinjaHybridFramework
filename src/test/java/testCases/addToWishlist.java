@@ -10,7 +10,7 @@ public class addToWishlist extends baseClass {
     
     wishListPage wlp;
 
-    @Test
+    @Test(groups = "addToCart", dependsOnGroups = "searchWishlist")
     public void AddtoWishList() {
     	
         LoggerLoad.info("===== Starting test: AddtoWishList =====");

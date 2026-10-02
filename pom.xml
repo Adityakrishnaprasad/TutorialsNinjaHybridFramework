@@ -6,6 +6,11 @@
 	<groupId>testingpurpose</groupId>
 	<artifactId>TutorialsNinjaHybridFrameWork</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<properties>
+		<maven.compiler.release>17</maven.compiler.release>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
 	<!-- plugins for jenkins run -->
 
 	<build>

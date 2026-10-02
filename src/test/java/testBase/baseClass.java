@@ -21,8 +21,6 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
-
-import io.github.bonigarcia.wdm.WebDriverManager;
 import io.qameta.allure.Allure;
 import utilities.AllureEnvironmentWriter;
 import utilities.LoggerLoad;
@@ -32,9 +30,6 @@ public class baseClass {
 
 	// ThreadLocal WebDriver
 	private static final ThreadLocal<WebDriver> tlDriver = new ThreadLocal<>();
-
-	// still expose driver, so no need to change test/page code
-	public static WebDriver driver;
 
 	/**
 	 * @param driver
@@ -101,8 +96,7 @@ public class baseClass {
 		            dcp.setCapability(ChromeOptions.CAPABILITY, co);
 		            dcp.setBrowserName("chrome");
 
-		            driver = new RemoteWebDriver(new URL(hubURL), dcp);
-		            setDriver(driver);
+		            setDriver(new RemoteWebDriver(new URL(hubURL), dcp));
 		            break;
 		        }
 
@@ -122,8 +116,7 @@ public class baseClass {
 		            dcp.setCapability(EdgeOptions.CAPABILITY, eo);
 		            dcp.setBrowserName("MicrosoftEdge");
 
-		            driver = new RemoteWebDriver(new URL(hubURL), dcp);
-		            setDriver(driver);
+		            setDriver(new RemoteWebDriver(new URL(hubURL), dcp));
 		            break;
 		        }
 
@@ -138,8 +131,7 @@ public class baseClass {
 		            dcp.setCapability(FirefoxOptions.FIREFOX_OPTIONS, fo);
 		            dcp.setBrowserName("firefox");
 
-		            driver = new RemoteWebDriver(new URL(hubURL), dcp);
-		            setDriver(driver);
+		            setDriver(new RemoteWebDriver(new URL(hubURL), dcp));
 		            break;
 		        }
 
@@ -148,7 +140,7 @@ public class baseClass {
 		    }
 
 		    if (System.getenv("JENKINS_HOME") == null) {
-		        driver.manage().window().maximize();
+		        getDriver().manage().window().maximize();
 		    }
 		}
 		
@@ -158,7 +150,6 @@ public class baseClass {
 
 			switch (browser.toLowerCase()) {
 			case "chrome":
-				WebDriverManager.chromedriver().setup();
 				ChromeOptions co = new ChromeOptions();
 				co.setExperimentalOption("excludeSwitches", new String[] { "enable-automation" });
 				co.setPageLoadStrategy(PageLoadStrategy.EAGER);
@@ -176,12 +167,10 @@ public class baseClass {
 
 				co.addArguments("--remote-allow-origins=*");
 
-				driver = new ChromeDriver(co);
-				setDriver(driver);
+				setDriver(new ChromeDriver(co));
 				break;
 
 			case "firefox":
-				WebDriverManager.firefoxdriver().setup();
 				FirefoxOptions fo = new FirefoxOptions();
 				fo.setPageLoadStrategy(PageLoadStrategy.EAGER);
 
@@ -189,12 +178,10 @@ public class baseClass {
 					fo.addArguments("-headless");
 				}
 
-				driver = new FirefoxDriver(fo);
-				setDriver(driver);
+				setDriver(new FirefoxDriver(fo));
 				break;
 
 			case "edge":
-				WebDriverManager.edgedriver().setup();
 				EdgeOptions eo = new EdgeOptions();
 				eo.setExperimentalOption("excludeSwitches", new String[] { "enable-automation" });
 				eo.setPageLoadStrategy(PageLoadStrategy.EAGER);
@@ -208,8 +195,7 @@ public class baseClass {
 
 				}
 
-				driver = new EdgeDriver(eo);
-				setDriver(driver);
+				setDriver(new EdgeDriver(eo));
 				break;
 
 			default:
@@ -225,10 +211,10 @@ public class baseClass {
 
 		String url = configurationReader.get("baseURL");
 		LoggerLoad.info("Navigating to: " + url);
-		driver.get(url);
+		getDriver().get(url);
 
 		LoggerLoad.info("Writing Allure environment details...");
-		AllureEnvironmentWriter.writeEnv(driver);
+		AllureEnvironmentWriter.writeEnv(getDriver());
 
 		LoggerLoad.info("Browser setup completed successfully.");
 	}
