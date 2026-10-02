@@ -1,3 +1,5 @@
+name: tutorialsninja-grid
+
 services:
 
   selenium-hub:

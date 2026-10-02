@@ -1,3 +1,23 @@
+// Reads email\summary.properties written by ci\build-email.ps1
+def readSummary() {
+    def summary = [:]
+    if (fileExists('email/summary.properties')) {
+        readFile('email/summary.properties').split('\\r?\\n').each { line ->
+            def parts = line.split('=', 2)
+            if (parts.size() == 2) { summary[parts[0].trim()] = parts[1].trim() }
+        }
+    }
+    return summary
+}
+
+// "Scheduled" for cron runs, "Manual (user)" for Build Now / Build with Parameters
+def triggerText() {
+    if (currentBuild.getBuildCauses('hudson.triggers.TimerTrigger$TimerTriggerCause')) { return 'Scheduled' }
+    def userCause = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')
+    if (userCause) { return "Manual (${userCause[0].userName})" }
+    return 'Other'
+}
+
 pipeline {
     agent any
 
@@ -28,12 +48,15 @@ pipeline {
         stage('Clean Old Results') {
             steps {
                 bat 'if exist allure-results rmdir /s /q allure-results'
+                bat 'if exist email rmdir /s /q email'
             }
         }
 
         stage('Start Selenium Grid') {
             when { environment name: 'RUN_MODE', value: 'grid' }
             steps {
+                // Remove any Grid left running from an earlier or local run
+                bat(script: 'docker compose down', returnStatus: true)
                 bat 'docker compose up -d'
                 // Wait until the hub and all 3 browser nodes are ready (max 2 minutes)
                 powershell '''
@@ -60,7 +83,25 @@ pipeline {
                     def suite   = (env.RUN_MODE == 'grid') ? 'grid-parallel-suite.xml' : 'master.xml'
                     def execEnv = (env.RUN_MODE == 'grid') ? 'remote' : 'local'
                     echo "Run mode: ${env.RUN_MODE} | Suite: ${suite}"
-                    bat "mvn clean test -Dsurefire.suiteXmlFiles=${suite} -Dexecution_env=${execEnv}"
+                    // Test failures don't stop the build here; 'Check Results' decides the status
+                    bat "mvn clean test -Dsurefire.suiteXmlFiles=${suite} -Dexecution_env=${execEnv} -Dmaven.test.failure.ignore=true"
+                }
+            }
+        }
+
+        stage('Check Results') {
+            steps {
+                powershell '& .\\ci\\build-email.ps1 -SummaryOnly'
+                script {
+                    def s = readSummary()
+                    def total   = (s.TOTAL   ?: '0') as int
+                    def failed  = (s.FAILED  ?: '0') as int
+                    def skipped = (s.SKIPPED ?: '0') as int
+                    if (total == 0) {
+                        error('No test results were produced')
+                    } else if (failed > 0 || skipped > 0) {
+                        unstable("${failed} failed, ${skipped} skipped out of ${total} tests")
+                    }
                 }
             }
         }
@@ -73,40 +114,39 @@ pipeline {
                 jdk: '',
                 results: [[path: 'allure-results']]
             )
-        }
 
-        success {
-            emailext(
-                to: env.notify_email,
-                subject: "SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER} (${env.RUN_MODE})",
-                body: """
-Job: ${env.JOB_NAME}
-Build Number: ${env.BUILD_NUMBER}
-Run Mode: ${env.RUN_MODE}
-Status: SUCCESS
-Build URL: ${env.BUILD_URL}
+            script {
+                // Allure command line installed by the Jenkins Allure plugin (used for the single-file report)
+                def allureHome = ''
+                try {
+                    allureHome = tool 'Allure'
+                } catch (e) {
+                    allureHome = 'C:\\ProgramData\\Jenkins\\.jenkins\\tools\\ru.yandex.qatools.allure.jenkins.tools.AllureCommandlineInstallation\\Allure'
+                }
 
-Allure Report:
-${env.BUILD_URL}allure/
-"""
-            )
-        }
+                def status = currentBuild.currentResult
+                withEnv([
+                    "BUILD_RESULT=${status}",
+                    "TRIGGER_TEXT=${triggerText()}",
+                    "BUILD_START_MS=${currentBuild.startTimeInMillis}",
+                    "BUILD_DURATION_MS=${currentBuild.duration}",
+                    "ALLURE_CLI=${allureHome}"
+                ]) {
+                    powershell(script: '& .\\ci\\build-email.ps1', returnStatus: true)
+                }
 
-        failure {
-            emailext(
-                to: env.notify_email,
-                subject: "FAILED: ${env.JOB_NAME} #${env.BUILD_NUMBER} (${env.RUN_MODE})",
-                body: """
-Job: ${env.JOB_NAME}
-Build Number: ${env.BUILD_NUMBER}
-Run Mode: ${env.RUN_MODE}
-Status: FAILED
-Build URL: ${env.BUILD_URL}
+                def s = readSummary()
+                def label = [SUCCESS: 'PASSED', UNSTABLE: 'UNSTABLE', FAILURE: 'FAILED', ABORTED: 'ABORTED'][status] ?: status
+                def counts = s.TOTAL ? " - ${s.PASSED}/${s.TOTAL} passed" : ''
 
-Allure Report:
-${env.BUILD_URL}allure/
-"""
-            )
+                emailext(
+                    to: env.notify_email,
+                    subject: "[${label}] ${env.JOB_NAME} #${env.BUILD_NUMBER}${counts} (${env.RUN_MODE})",
+                    body: '${FILE,path="email/email-body.html"}',
+                    mimeType: 'text/html',
+                    attachmentsPattern: 'email/attach/*'
+                )
+            }
         }
 
         cleanup {
