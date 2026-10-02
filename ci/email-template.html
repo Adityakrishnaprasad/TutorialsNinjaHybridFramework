@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{{JOB}} #{{BUILD}}</title>
+</head>
+<body style="margin:0;padding:0;background:#F3F4F6;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#F3F4F6;">
+<tr><td align="center" style="padding:24px 12px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:680px;background:#FFFFFF;border:1px solid #E5E7EB;border-radius:8px;font-family:'Segoe UI',Helvetica,Arial,sans-serif;color:#1F2937;">
+
+<!-- Build name and status -->
+<tr><td style="padding:22px 24px;border-bottom:1px solid #E5E7EB;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>
+    <td style="vertical-align:middle;">
+      <div style="font-size:13px;color:#6B7280;">Automation test report</div>
+      <div style="font-size:20px;font-weight:700;margin-top:2px;">{{JOB}} #{{BUILD}}</div>
+    </td>
+    <td align="right" style="vertical-align:middle;">
+      <span style="display:inline-block;background:{{STATUS_BG}};color:{{STATUS_FG}};border:1px solid {{STATUS_FG}};border-radius:4px;padding:6px 12px;font-size:13px;font-weight:700;">{{STATUS_LABEL}}</span>
+    </td>
+  </tr></table>
+</td></tr>
+
+<!-- Run details -->
+<tr><td style="padding:16px 24px 4px 24px;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="font-size:14px;">
+    <tr>
+      <td width="18%" style="padding:5px 0;color:#6B7280;">Suite</td>
+      <td width="32%" style="padding:5px 8px 5px 0;font-weight:600;">{{SUITE}}</td>
+      <td width="18%" style="padding:5px 0;color:#6B7280;">Browsers</td>
+      <td width="32%" style="padding:5px 8px 5px 0;font-weight:600;">{{BROWSERS}}</td>
+    </tr>
+    <tr>
+      <td style="padding:5px 0;color:#6B7280;">Mode</td>
+      <td style="padding:5px 8px 5px 0;font-weight:600;">{{MODE}}</td>
+      <td style="padding:5px 0;color:#6B7280;">Triggered by</td>
+      <td style="padding:5px 8px 5px 0;font-weight:600;">{{TRIGGER}}</td>
+    </tr>
+    <tr>
+      <td style="padding:5px 0;color:#6B7280;">Started</td>
+      <td style="padding:5px 8px 5px 0;font-weight:600;">{{STARTED}}</td>
+      <td style="padding:5px 0;color:#6B7280;">Duration</td>
+      <td style="padding:5px 8px 5px 0;font-weight:600;">{{DURATION}}</td>
+    </tr>
+  </table>
+</td></tr>
+
+<!-- Counts -->
+<tr><td style="padding:14px 18px 6px 18px;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="6"><tr>
+    <td width="25%" style="background:#FFFFFF;border:1px solid #E5E7EB;border-radius:6px;padding:12px;text-align:center;">
+      <div style="font-size:24px;font-weight:700;color:#1F2937;">{{TOTAL}}</div><div style="font-size:13px;color:#6B7280;margin-top:2px;">Total</div></td>
+    <td width="25%" style="background:#ECFDF5;border:1px solid #A7F3D0;border-radius:6px;padding:12px;text-align:center;">
+      <div style="font-size:24px;font-weight:700;color:#047857;">{{PASSED}}</div><div style="font-size:13px;color:#6B7280;margin-top:2px;">Passed</div></td>
+    <td width="25%" style="background:#FEF2F2;border:1px solid #FECACA;border-radius:6px;padding:12px;text-align:center;">
+      <div style="font-size:24px;font-weight:700;color:#B91C1C;">{{FAILED}}</div><div style="font-size:13px;color:#6B7280;margin-top:2px;">Failed</div></td>
+    <td width="25%" style="background:#F9FAFB;border:1px solid #E5E7EB;border-radius:6px;padding:12px;text-align:center;">
+      <div style="font-size:24px;font-weight:700;color:#4B5563;">{{SKIPPED}}</div><div style="font-size:13px;color:#6B7280;margin-top:2px;">Skipped</div></td>
+  </tr></table>
+</td></tr>
+
+<!-- Test results -->
+<tr><td style="padding:12px 24px 24px 24px;">
+  <div style="font-size:15px;font-weight:700;margin-bottom:8px;">Test results</div>
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #E5E7EB;border-collapse:separate;border-radius:6px;font-size:13px;">
+{{TABLE_ROWS}}
+  </table>
+</td></tr>
+
+</table>
+</td></tr>
+</table>
+</body>
+</html>
