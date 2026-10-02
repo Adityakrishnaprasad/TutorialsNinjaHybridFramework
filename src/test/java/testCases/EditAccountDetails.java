@@ -1,6 +1,7 @@
 package testCases;
 
 import org.testng.Assert;
+import org.testng.ITestContext;
 import org.testng.annotations.Test;
 
 import pageObjects.editAccountPage;
@@ -19,7 +20,7 @@ public class EditAccountDetails extends baseClass {
 	registerPage reg;
 
 	@Test(groups = "editAccount", dependsOnGroups = "register")
-	public void editAccountDetails() {
+	public void editAccountDetails(ITestContext context) {
 
 		LoggerLoad.info("===== Starting test: editAccountDetails =====");
 
@@ -43,7 +44,8 @@ public class EditAccountDetails extends baseClass {
 		reg.enterLastName(DataGenerator.getLastName());
 
 		LoggerLoad.info("Step 6: Updating Email");
-		reg.enterEmail(DataGenerator.getEmail());
+		String newEmail = DataGenerator.getEmail();
+		reg.enterEmail(newEmail);
 
 		LoggerLoad.info("Step 7: Updating Telephone");
 		reg.enterTelephone(DataGenerator.getTelephone());
@@ -55,6 +57,10 @@ public class EditAccountDetails extends baseClass {
 		String msgConfirmation = editAcc.getSuccessMessage();
 
 		Assert.assertEquals(msgConfirmation, msg);
+
+		// Email changed, so update this browser's saved account for loginTest
+		context.setAttribute(USER_EMAIL, newEmail);
+		LoggerLoad.info("Updated saved account email: " + newEmail);
 
 		LoggerLoad.info("Account details updated successfully");
 		LoggerLoad.info("===== Finished test: editAccountDetails =====");

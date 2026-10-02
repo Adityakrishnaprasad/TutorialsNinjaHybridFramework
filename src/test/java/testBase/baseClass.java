@@ -31,6 +31,10 @@ public class baseClass {
 	// ThreadLocal WebDriver
 	private static final ThreadLocal<WebDriver> tlDriver = new ThreadLocal<>();
 
+	// Keys for the account created in this run (stored per browser in the TestNG test context)
+	protected static final String USER_EMAIL = "userEmail";
+	protected static final String USER_PASSWORD = "userPassword";
+
 	/**
 	 * @param driver
 	 */

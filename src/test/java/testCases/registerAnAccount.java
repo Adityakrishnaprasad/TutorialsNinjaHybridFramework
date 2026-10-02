@@ -1,5 +1,6 @@
 package testCases;
 
+import org.testng.ITestContext;
 import org.testng.annotations.Test;
 
 import pageObjects.landingPage;
@@ -14,7 +15,7 @@ public class registerAnAccount extends baseClass {
     registerPage rp;
 
     @Test(groups = "register")
-    public void CreateUser() {
+    public void CreateUser(ITestContext context) {
         LoggerLoad.info("===== Starting test: CreateUser =====");
 
         lp = new landingPage(getDriver());
@@ -22,12 +23,13 @@ public class registerAnAccount extends baseClass {
         lp.clickOnuserReg();
 
         String pwd = DataGenerator.getPassword();
+        String email = DataGenerator.getEmail();
 
         rp = new registerPage(getDriver());
         LoggerLoad.info("Step 2: Fill out registration form with random test data");
         rp.enterFirstName(DataGenerator.getFirstName());
         rp.enterLastName(DataGenerator.getLastName());
-        rp.enterEmail(DataGenerator.getEmail());
+        rp.enterEmail(email);
         rp.enterTelephone(DataGenerator.getTelephone());
         rp.enterPassword(pwd);
         rp.enterConfirmPassword(pwd);
@@ -38,6 +40,11 @@ public class registerAnAccount extends baseClass {
 
         LoggerLoad.info("Step 4: Verify account creation success");
         rp.verifyText();
+
+        // Save this browser's new account so loginTest can use it
+        context.setAttribute(USER_EMAIL, email);
+        context.setAttribute(USER_PASSWORD, pwd);
+        LoggerLoad.info("Saved new account for this browser: " + email);
 
         LoggerLoad.info("===== Finished test: CreateUser =====");
     }
