@@ -35,13 +35,13 @@ function Format-Seconds([double]$sec) {
 
 # Readable names for test methods (unknown names are shown as they are)
 $readable = @{
-    'CreateUser'             = 'Register a new account'
+    'registerNewAccount'     = 'Register a new account'
     'editAccountDetails'     = 'Edit account details'
-    'logOutTestapp'          = 'Log out'
-    'loginTestApp'           = 'Log in'
-    'searchandaddtowishlist' = 'Search and add to wishlist'
-    'AddtoWishList'          = 'Add to cart from wishlist'
-    'RemoveFromWishList'     = 'Remove from wishlist'
+    'logout'                 = 'Log out'
+    'login'                  = 'Log in'
+    'searchAndAddToWishlist' = 'Search and add to wishlist'
+    'addToCartFromWishlist'  = 'Add to cart from wishlist'
+    'removeFromWishlist'     = 'Remove from wishlist'
 }
 
 # ---------- Read results ----------

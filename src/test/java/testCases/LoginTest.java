@@ -1,29 +1,30 @@
 package testCases;
 
+import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.annotations.Test;
 
-import pageObjects.landingPage;
-import pageObjects.loginPage;
-import testBase.baseClass;
+import pageObjects.LandingPage;
+import pageObjects.LoginPage;
+import testBase.BaseClass;
 import utilities.LoggerLoad;
-import utilities.configurationReader; 
+import utilities.ConfigurationReader; 
 
-public class loginTest extends baseClass {
+public class LoginTest extends BaseClass {
 
-    landingPage lp;
-    loginPage logP;
+    LandingPage lp;
+    LoginPage logP;
 
     @Test(groups = "login", dependsOnGroups = "logout")
-    public void loginTestApp(ITestContext context) {
-        LoggerLoad.info("===== Starting test: loginTestApp =====");
+    public void login(ITestContext context) {
+        LoggerLoad.info("===== Starting test: login =====");
 
         // Use this browser's account from the current run; fall back to .env if none was saved
         String user = (String) context.getAttribute(USER_EMAIL);
         String pass = (String) context.getAttribute(USER_PASSWORD);
         if (user == null || pass == null) {
-            user = configurationReader.get("app_username");
-            pass = configurationReader.get("app_password");
+            user = ConfigurationReader.getRequired("app_username");
+            pass = ConfigurationReader.getRequired("app_password");
             LoggerLoad.info("No account saved in this run, using credentials from .env");
         } else {
             LoggerLoad.info("Using account created in this run: " + user);
@@ -31,11 +32,11 @@ public class loginTest extends baseClass {
 
         LoggerLoad.info("Step 1: Navigate to Login page");
 
-        lp = new landingPage(getDriver());
-        lp.clickOnLogin();
+        lp = new LandingPage(getDriver());
+        lp.goToLoginPage();
 
         LoggerLoad.info("Step 2: Enter login credentials");
-        logP = new loginPage(getDriver());
+        logP = new LoginPage(getDriver());
         logP.enterEmail(user);
         logP.enterPassword(pass);
 
@@ -43,8 +44,8 @@ public class loginTest extends baseClass {
         logP.clickLoginButton();
 
         LoggerLoad.info("Step 4: Verify login success");
-        logP.verifyLoginSuccess();
+        Assert.assertTrue(logP.isMyAccountPageShown(), "Login failed: 'My Account' page was not shown");
 
-        LoggerLoad.info("===== Finished test: loginTestApp =====");
+        LoggerLoad.info("===== Finished test: login =====");
     }
 }

@@ -1,37 +1,35 @@
 package pageObjects;
 
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.testng.Assert;
 
-import utilities.LoggerLoad; // <-- import logger
+import utilities.LoggerLoad;
 
-public class wishListPage extends basePage {
+public class WishListPage extends BasePage {
 
-    public wishListPage(WebDriver driver) {
+    public WishListPage(WebDriver driver) {
         super(driver);
     }
 
-    @FindBy(xpath="(//tbody/tr/td[2]/a)") 
+    @FindBy(xpath="//div[@id='content']//tbody/tr/td[2]/a") 
     private WebElement productName;
 
-    @FindBy(xpath="//tbody/tr/td[5]/div") 
+    @FindBy(xpath="//div[@id='content']//tbody/tr/td[5]/div") 
     private WebElement productPrice;
 
     @FindBy(xpath="//button[@data-original-title='Add to Cart']/i") 
-    private WebElement addToCartBtn;
+    private WebElement addToCartButton;
 
     @FindBy(css="div[class='alert alert-success alert-dismissible']") 
     private WebElement confirmationPopup;
 
     @FindBy(xpath="//button[@class='btn btn-inverse btn-block btn-lg dropdown-toggle']") 
-    private WebElement cart2;
+    private WebElement cartButton;
 
     @FindBy(xpath="//button/i[@class='fa fa-times']") 
-    private WebElement closeicon;
+    private WebElement cartRemoveIcon;
 
     @FindBy(xpath="//div[@id='content']//a[contains(@href,'remove=')]") 
     private WebElement removeIcon;
@@ -39,34 +37,27 @@ public class wishListPage extends basePage {
     @FindBy(xpath="//p[text()='Your wish list is empty.']") 
     private WebElement emptyWishlistMessage;    
 
-    public void clickOnFirstAddtoCartBtn() {
-    	System.out.println();
+    public void addFirstProductToCart() {
         LoggerLoad.info("Clicking on 'Add to Cart' button for first product in wishlist");
-        try {
-            customWait.until(ExpectedConditions.elementToBeClickable(addToCartBtn)).click();
-        } catch (Exception e) {
-            LoggerLoad.warn("Standard click failed, using JavaScript click for 'Add to Cart' button");
-            ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].scrollIntoView({block: 'center'}); arguments[0].click();", addToCartBtn
-            );
-        }
+        click(addToCartButton);
     }
 
-    public void VerifyPopUp() {
-        LoggerLoad.info("Verifying confirmation popup after adding to cart");
+    public String getConfirmationMessage() {
+        LoggerLoad.info("Reading confirmation message after adding to cart");
         customWait.until(ExpectedConditions.visibilityOf(confirmationPopup));
-        Assert.assertTrue(confirmationPopup.isDisplayed(), "Confirmation popup is not displayed");
-        LoggerLoad.info("Confirmation popup displayed successfully");
+        String msg = confirmationPopup.getText().trim();
+        LoggerLoad.info("Confirmation message: " + msg);
+        return msg;
     }
 
-    public void clickOnCart2() {
+    public void openCartDropdown() {
         LoggerLoad.info("Clicking on Cart dropdown (top navigation)");
-        customWait.until(ExpectedConditions.elementToBeClickable(cart2)).click();
+        click(cartButton);
     }
 
-    public void closeIcon() {
+    public void removeItemFromCart() {
         LoggerLoad.info("Clicking on Close icon inside cart");
-        customWait.until(ExpectedConditions.elementToBeClickable(closeicon)).click();
+        click(cartRemoveIcon);
     }
 
     /** 
@@ -91,16 +82,9 @@ public class wishListPage extends basePage {
         return price;
     }
 
-    public void clickOnFirstRemoveIcon() {
+    public void removeFirstProduct() {
         LoggerLoad.info("Clicking on Remove icon for first product in wishlist");
-        try {
-            customWait.until(ExpectedConditions.elementToBeClickable(removeIcon)).click();
-        } catch (Exception e) {
-            LoggerLoad.warn("Standard click failed, using JavaScript click for Remove icon");
-            ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].scrollIntoView({block: 'center'}); arguments[0].click();", removeIcon
-            );
-        }
+        click(removeIcon);
     }
 
     /** 
@@ -111,7 +95,6 @@ public class wishListPage extends basePage {
         customWait.until(ExpectedConditions.visibilityOf(emptyWishlistMessage));
         String msg = emptyWishlistMessage.getText();
         LoggerLoad.info("Empty wishlist message: " + msg);
-        System.out.println();
         return msg;
     }   
 }

@@ -2,7 +2,7 @@ package utilities;
 
 import java.util.UUID;
 
-import com.github.javafaker.Faker;
+import net.datafaker.Faker;
 
 public class DataGenerator {
 

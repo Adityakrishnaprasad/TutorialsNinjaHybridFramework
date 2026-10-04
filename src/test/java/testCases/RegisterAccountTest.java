@@ -1,31 +1,32 @@
 package testCases;
 
+import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.annotations.Test;
 
-import pageObjects.landingPage;
-import pageObjects.registerPage;
-import testBase.baseClass;
+import pageObjects.LandingPage;
+import pageObjects.RegisterPage;
+import testBase.BaseClass;
 import utilities.DataGenerator;
-import utilities.LoggerLoad; // <-- import logger
+import utilities.LoggerLoad;
 
-public class registerAnAccount extends baseClass {
+public class RegisterAccountTest extends BaseClass {
     
-    landingPage lp;
-    registerPage rp;
+    LandingPage lp;
+    RegisterPage rp;
 
     @Test(groups = "register")
-    public void CreateUser(ITestContext context) {
-        LoggerLoad.info("===== Starting test: CreateUser =====");
+    public void registerNewAccount(ITestContext context) {
+        LoggerLoad.info("===== Starting test: registerNewAccount =====");
 
-        lp = new landingPage(getDriver());
+        lp = new LandingPage(getDriver());
         LoggerLoad.info("Step 1: Navigate to Register page");
-        lp.clickOnuserReg();
+        lp.goToRegisterPage();
 
         String pwd = DataGenerator.getPassword();
         String email = DataGenerator.getEmail();
 
-        rp = new registerPage(getDriver());
+        rp = new RegisterPage(getDriver());
         LoggerLoad.info("Step 2: Fill out registration form with random test data");
         rp.enterFirstName(DataGenerator.getFirstName());
         rp.enterLastName(DataGenerator.getLastName());
@@ -33,19 +34,19 @@ public class registerAnAccount extends baseClass {
         rp.enterTelephone(DataGenerator.getTelephone());
         rp.enterPassword(pwd);
         rp.enterConfirmPassword(pwd);
-        rp.clickCheckbox();
+        rp.acceptPrivacyPolicy();
 
         LoggerLoad.info("Step 3: Submit registration form");
-        rp.clickContinueButton();
+        rp.clickContinue();
 
         LoggerLoad.info("Step 4: Verify account creation success");
-        rp.verifyText();
+        Assert.assertEquals(rp.getConfirmationText(), "Your Account Has Been Created!", "Account was not created");
 
-        // Save this browser's new account so loginTest can use it
+        // Save this browser's new account so LoginTest can use it
         context.setAttribute(USER_EMAIL, email);
         context.setAttribute(USER_PASSWORD, pwd);
         LoggerLoad.info("Saved new account for this browser: " + email);
 
-        LoggerLoad.info("===== Finished test: CreateUser =====");
+        LoggerLoad.info("===== Finished test: registerNewAccount =====");
     }
 }

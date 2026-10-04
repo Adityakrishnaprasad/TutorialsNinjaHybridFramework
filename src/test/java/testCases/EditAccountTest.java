@@ -4,61 +4,52 @@ import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.annotations.Test;
 
-import pageObjects.editAccountPage;
-import pageObjects.landingPage;
-import pageObjects.registerPage;
-import testBase.baseClass;
+import pageObjects.EditAccountPage;
+import testBase.BaseClass;
 import utilities.DataGenerator;
 import utilities.LoggerLoad;
 
-public class EditAccountDetails extends baseClass {
+public class EditAccountTest extends BaseClass {
 	
 	String msg = "Success: Your account has been successfully updated.";
 	
-	editAccountPage editAcc;
-	landingPage lp;
-	registerPage reg;
+	EditAccountPage editAcc;
 
 	@Test(groups = "editAccount", dependsOnGroups = "register")
 	public void editAccountDetails(ITestContext context) {
 
 		LoggerLoad.info("===== Starting test: editAccountDetails =====");
 
-		lp = new landingPage(getDriver());
-		reg = new registerPage(getDriver());
-		editAcc = new editAccountPage(getDriver());
+		editAcc = new EditAccountPage(getDriver());
 
-		LoggerLoad.info("Step 1: Clicking on My Account");
-		lp.clickonMyAccount();
-
-		LoggerLoad.info("Step 2: Navigating to My Account page");
-		editAcc.navigateToMyAccount();
+		LoggerLoad.info("Step 1-2: Go to My Account page");
+		editAcc.goToMyAccountPage();
 
 		LoggerLoad.info("Step 3: Navigating to Edit Account page");
-		editAcc.navigateToEditAccountPage();
+		editAcc.goToEditAccountPage();
 
 		LoggerLoad.info("Step 4: Updating First Name");
-		reg.enterFirstName(DataGenerator.getFirstName());
+		editAcc.enterFirstName(DataGenerator.getFirstName());
 
 		LoggerLoad.info("Step 5: Updating Last Name");
-		reg.enterLastName(DataGenerator.getLastName());
+		editAcc.enterLastName(DataGenerator.getLastName());
 
 		LoggerLoad.info("Step 6: Updating Email");
 		String newEmail = DataGenerator.getEmail();
-		reg.enterEmail(newEmail);
+		editAcc.enterEmail(newEmail);
 
 		LoggerLoad.info("Step 7: Updating Telephone");
-		reg.enterTelephone(DataGenerator.getTelephone());
+		editAcc.enterTelephone(DataGenerator.getTelephone());
 
 		LoggerLoad.info("Step 8: Clicking Continue button");
-		reg.clickContinueButton();
+		editAcc.clickContinue();
 
 		LoggerLoad.info("Step 9: Verifying success message");
 		String msgConfirmation = editAcc.getSuccessMessage();
 
 		Assert.assertEquals(msgConfirmation, msg);
 
-		// Email changed, so update this browser's saved account for loginTest
+		// Email changed, so update this browser's saved account for LoginTest
 		context.setAttribute(USER_EMAIL, newEmail);
 		LoggerLoad.info("Updated saved account email: " + newEmail);
 

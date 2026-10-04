@@ -4,6 +4,7 @@
 <suite name="CrossBrowserSuite" parallel="none" thread-count="3">
     <listeners>
         <listener class-name="utilities.Listeners"/>
+        <listener class-name="utilities.RetryListener"/>
         <listener class-name="io.qameta.allure.testng.AllureTestNg"/>
     </listeners>
 
@@ -13,26 +14,26 @@
   <!--  <test name="FirefoxTest">
         <parameter name="browser" value="firefox"/>
         <classes>
-            <class name="testCases.registerAnAccount"/>
-            <class name="testCases.EditAccountDetails"/>
-             <class name="testCases.logOutTest"/>
-            <class name="testCases.loginTest"/>
-            <class name="testCases.searchAndAddtoWishlistaProduct"/>
-            <class name="testCases.addToWishlist"/>
-            <class name="testCases.removeFromWishlist"/>
+            <class name="testCases.RegisterAccountTest"/>
+            <class name="testCases.EditAccountTest"/>
+             <class name="testCases.LogoutTest"/>
+            <class name="testCases.LoginTest"/>
+            <class name="testCases.SearchAndAddToWishlistTest"/>
+            <class name="testCases.AddToCartFromWishlistTest"/>
+            <class name="testCases.RemoveFromWishlistTest"/>
         </classes> 
     </test>-->
     <!-- Chrome Tests -->
     <test name="ChromeTest">
         <parameter name="browser" value="chrome"/>
         <classes>
-            <class name="testCases.registerAnAccount"/>
-             <class name="testCases.EditAccountDetails"/>
-            <class name="testCases.logOutTest"/>
-            <class name="testCases.loginTest"/>
-            <class name="testCases.searchAndAddtoWishlistaProduct"/>
-            <class name="testCases.addToWishlist"/>
-            <class name="testCases.removeFromWishlist"/>
+            <class name="testCases.RegisterAccountTest"/>
+             <class name="testCases.EditAccountTest"/>
+            <class name="testCases.LogoutTest"/>
+            <class name="testCases.LoginTest"/>
+            <class name="testCases.SearchAndAddToWishlistTest"/>
+            <class name="testCases.AddToCartFromWishlistTest"/>
+            <class name="testCases.RemoveFromWishlistTest"/>
         </classes> 
     </test> 
 
@@ -40,13 +41,13 @@
     <!-- <test name="EdgeTest">
         <parameter name="browser" value="edge"/>
         <classes>
-            <class name="testCases.registerAnAccount"/>
-            <class name="testCases.EditAccountDetails"/>
-            <class name="testCases.logOutTest"/>
-            <class name="testCases.loginTest"/>
-            <class name="testCases.searchAndAddtoWishlistaProduct"/>
-            <class name="testCases.addToWishlist"/>
-            <class name="testCases.removeFromWishlist"/>
+            <class name="testCases.RegisterAccountTest"/>
+            <class name="testCases.EditAccountTest"/>
+            <class name="testCases.LogoutTest"/>
+            <class name="testCases.LoginTest"/>
+            <class name="testCases.SearchAndAddToWishlistTest"/>
+            <class name="testCases.AddToCartFromWishlistTest"/>
+            <class name="testCases.RemoveFromWishlistTest"/>
         </classes>
     </test> -->
 </suite>
