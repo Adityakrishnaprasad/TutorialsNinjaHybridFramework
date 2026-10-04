@@ -3,21 +3,21 @@ package testCases;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import pageObjects.wishListPage;
-import testBase.baseClass;
+import pageObjects.WishListPage;
+import testBase.BaseClass;
 import utilities.LoggerLoad; 
-public class removeFromWishlist extends baseClass {  
+public class RemoveFromWishlistTest extends BaseClass {  
 
-    wishListPage wlp;
+    WishListPage wlp;
 
     @Test(dependsOnGroups = "addToCart")
-    public void RemoveFromWishList() {
-        LoggerLoad.info("===== Starting test: RemoveFromWishList =====");
+    public void removeFromWishlist() {
+        LoggerLoad.info("===== Starting test: removeFromWishlist =====");
 
-        wlp = new wishListPage(getDriver());
+        wlp = new WishListPage(getDriver());
 
         LoggerLoad.info("Step 1: Remove first product from wishlist");
-        wlp.clickOnFirstRemoveIcon();
+        wlp.removeFirstProduct();
 
         LoggerLoad.info("Step 2: Verify wishlist is empty");
         String actualMessage = wlp.getEmptyWishlistMessage();
@@ -27,6 +27,6 @@ public class removeFromWishlist extends baseClass {
                 "Wishlist is not empty after removing the product.");
         LoggerLoad.info("Assertion Passed: Wishlist is empty. Message displayed: " + actualMessage);
 
-        LoggerLoad.info("===== Finished test: RemoveFromWishList =====");
+        LoggerLoad.info("===== Finished test: removeFromWishlist =====");
     }
 }

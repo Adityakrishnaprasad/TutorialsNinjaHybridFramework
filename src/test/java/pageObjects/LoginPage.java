@@ -1,16 +1,16 @@
 package pageObjects;
 
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.testng.Assert;
 
 import utilities.LoggerLoad; 
 
-public class loginPage extends basePage {
+public class LoginPage extends BasePage {
 
-    public loginPage(WebDriver driver) {
+    public LoginPage(WebDriver driver) {
         super(driver);
     }
 
@@ -30,10 +30,8 @@ public class loginPage extends basePage {
      * @param email
      */
     public void enterEmail(String email) {
-    	System.out.println();
         LoggerLoad.info("Entering email: " + email);
-        emailField.clear();
-        emailField.sendKeys(email);
+        type(emailField, email);
     }
 
     /** 
@@ -41,21 +39,22 @@ public class loginPage extends basePage {
      */
     public void enterPassword(String password) {
         LoggerLoad.info("Entering password: [PROTECTED]");
-        passwordField.clear();
-        passwordField.sendKeys(password);
+        type(passwordField, password);
     }
 
     public void clickLoginButton() {
         LoggerLoad.info("Clicking on 'Login' button");
-        customWait.until(ExpectedConditions.elementToBeClickable(loginButton)).click();
+        click(loginButton);
     }
 
-    public void verifyLoginSuccess() {
-        LoggerLoad.info("Verifying login success by checking 'My Account' header");
-        customWait.until(ExpectedConditions.visibilityOf(myAccountHeader));
-        Assert.assertTrue(myAccountHeader.isDisplayed(),
-                "Login failed, My Account header not displayed.");
-        LoggerLoad.info("Login successful - 'My Account' header is visible");
-        System.out.println();
+    // True if the 'My Account' page appears after login (waits up to the explicit wait time)
+    public boolean isMyAccountPageShown() {
+        LoggerLoad.info("Checking for 'My Account' header after login");
+        try {
+            customWait.until(ExpectedConditions.visibilityOf(myAccountHeader));
+            return true;
+        } catch (TimeoutException e) {
+            return false;
+        }
     }
 }
